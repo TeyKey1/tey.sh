@@ -2,7 +2,7 @@ use itertools::Itertools;
 use ratatui::{prelude::*, widgets::*};
 use unicode_width::UnicodeWidthStr;
 
-use crate::demo::{layout, RgbSwatch, THEME};
+use crate::tui::demo::{layout, RgbSwatch, THEME};
 
 #[derive(Debug, Default)]
 pub struct Email {

@@ -1,12 +1,7 @@
-use std::rc::Rc;
-
-use crossterm::{event::EnableMouseCapture, execute, terminal::EnterAlternateScreen};
-use ratatui::prelude::CrosstermBackend;
 use wasm_bindgen::{prelude::Closure, JsCast, JsValue};
 use web_sys::UiEvent;
-use xterm_js_rs::{
-    addons::fit::FitAddon, crossterm::XtermJsCrosstermBackend, Terminal, TerminalOptions, Theme,
-};
+use xterm_js_rs::xterm::Terminal;
+use xterm_js_rs::{addons::fit::FitAddon, TerminalOptions, Theme};
 
 use crate::util::window;
 
@@ -22,7 +17,7 @@ pub fn init() -> Result<Terminal, JsValue> {
             .with_draw_bold_text_in_bright_colors(true)
             .with_right_click_selects_word(true)
             .with_scrollback(0)
-            .with_theme(Theme::new().with_background("#080808")),
+            .with_theme(&terminal_theme()),
     );
 
     let wrapper_element = web_sys::window()
@@ -51,13 +46,34 @@ pub fn init() -> Result<Terminal, JsValue> {
     Ok(terminal)
 }
 
-/// Init and configure crossterm backend
-pub fn init_backend(terminal: Rc<Terminal>) -> CrosstermBackend<XtermJsCrosstermBackend> {
-    let mut backend: CrosstermBackend<XtermJsCrosstermBackend> =
-        CrosstermBackend::new(terminal.clone());
+/// Constructs the color theme of the terminal
+///
+/// The theme is based on the marine dark theme by ProDeSquare (https://github.com/ProDeSquare) with some color adjustments to match the overall website theme
+/// Color theme taken from https://github.com/ProDeSquare/alacritty-colorschemes/blob/master/themes/marine_dark.yaml Apache License 2.0 (https://github.com/ProDeSquare/alacritty-colorschemes/blob/master/LICENSE)
+fn terminal_theme() -> Theme {
+    let theme = Theme::new();
 
-    execute!(&mut backend, EnterAlternateScreen, EnableMouseCapture)
-        .expect("Failed to configure crossterm backend");
+    theme
+        .with_background("#080808")
+        .with_foreground("#FFFFFF")
+        // Colors
+        .with_black("#002221")
+        .with_red("#EA3431")
+        .with_green("#00B6B6")
+        .with_yellow("#E7BF00")
+        .with_blue("#4894FD")
+        .with_magenta("#E01DCA")
+        .with_cyan("#1AB2AD")
+        .with_white("#FFFFFF")
+        // Bright colors
+        .with_bright_black("#006562")
+        .with_bright_red("#EA3431")
+        .with_bright_green("#00B6B6")
+        .with_bright_yellow("#E7BF00")
+        .with_bright_blue("#4894FD")
+        .with_bright_magenta("#E01DCA")
+        .with_bright_cyan("#1AB2AD")
+        .with_bright_white("#FFFFFF");
 
-    backend
+    theme
 }

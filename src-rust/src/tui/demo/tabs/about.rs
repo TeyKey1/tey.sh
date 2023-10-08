@@ -1,7 +1,7 @@
 use itertools::Itertools;
 use ratatui::{prelude::*, widgets::*};
 
-use crate::demo::{layout, RgbSwatch, THEME};
+use crate::tui::demo::{layout, RgbSwatch, THEME};
 
 const RATATUI_LOGO: [&str; 32] = [
     "               ███              ",
@@ -72,10 +72,14 @@ fn render_crate_description(area: Rect, buf: &mut Buffer) {
             horizontal: 2,
         }),
     );
-    let text = "- cooking up terminal user interfaces -
 
+    let text = format!(
+        "- cooking up terminal user interfaces -
+       
     Ratatui is a Rust crate that provides widgets (e.g. Paragraph, Table) and draws them to the \
-    screen efficiently every frame.";
+    screen efficiently every frame.\n",
+    );
+
     Paragraph::new(text)
         .style(THEME.description)
         .block(

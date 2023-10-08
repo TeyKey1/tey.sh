@@ -1,7 +1,7 @@
 use itertools::Itertools;
 use ratatui::{prelude::*, widgets::*};
 
-use crate::demo::{layout, RgbSwatch, THEME};
+use crate::tui::demo::{layout, RgbSwatch, THEME};
 
 #[derive(Debug, Default, Clone, Copy)]
 struct Ingredient {

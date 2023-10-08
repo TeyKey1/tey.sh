@@ -4,7 +4,7 @@ use ratatui::{
     widgets::{canvas::*, *},
 };
 
-use crate::demo::{layout, RgbSwatch, THEME};
+use crate::tui::demo::{layout, RgbSwatch, THEME};
 
 #[derive(Debug)]
 pub struct TracerouteTab {

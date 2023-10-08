@@ -1,116 +1,93 @@
-use std::cell::{Ref, RefCell};
+use std::rc::Rc;
 
-use crossterm::event::{Event, KeyCode};
-use ratatui::{prelude::Backend, Frame};
+use anyhow::Result;
+use crossterm::event::{Event, EventStream};
+use futures_util::stream::StreamExt;
+use wasm_bindgen::prelude::*;
+use xterm_js_rs::Terminal;
 
-use crate::demo::{AppContext, Root};
+use crate::cli::Cli;
+use crate::terminal;
+use crate::tui::Tui;
 
-/// Amount of tabs of this application
-const TAB_COUNT: u8 = 4;
-
-/**
- * State of the app
- */
-pub struct State {
-    pub current_tab: Tab,
-    pub row_index: u16,
+pub trait AppEventHandler {
+    /// Handle the terminal event. The returned boolean signals if the [AppMode] should be changed or not.
+    fn handle_event(&mut self, event: Event) -> bool;
 }
 
+/// The global app struct which handles mode switching and other mode-independent things like resizing
 pub struct App {
-    state: RefCell<State>,
+    terminal: Rc<Terminal>,
+    mode: AppMode,
 }
 
 impl App {
-    pub fn new() -> Self {
-        Self {
-            state: RefCell::new(State {
-                current_tab: Tab::new(TAB_COUNT),
-                row_index: 0,
-            }),
-        }
+    pub fn new() -> Result<Self, JsValue> {
+        let terminal = Rc::new(terminal::init()?);
+
+        Ok(Self {
+            terminal: terminal.clone(),
+            mode: AppMode::new(terminal, true),
+        })
     }
 
-    pub fn handle_event(&self, event: Event) {
-        match event {
-            Event::Key(event) => {
-                let mut app_state = self.state.borrow_mut();
+    pub async fn run(mut self) -> ! {
+        let mut stream = EventStream::new(&self.terminal);
 
-                match event.code {
-                    KeyCode::Tab => {
-                        app_state.current_tab.next();
-                    }
-                    KeyCode::BackTab => {
-                        app_state.current_tab.prev();
-                    }
-                    KeyCode::Up => {
-                        // TODO: Very unsafe, need a wrapper like Tab which keeps track of term size and current row
-                        app_state.row_index += 1;
-                    }
-                    KeyCode::Down => {
-                        // TODO: See Key UP
-                        app_state.row_index -= 1;
-                    }
-                    _ => (),
+        loop {
+            let switch_mode = match stream.next().await.unwrap() {
+                Ok(event) => self.mode.handle_event(event),
+                Err(err) => panic!("Event stream encountered error: {:?}", err),
+            };
+
+            if switch_mode {
+                match self.mode {
+                    AppMode::TUI(_) => self.mode.to_cli(self.terminal.clone()),
+                    AppMode::CLI(_) => self.mode.to_tui(self.terminal.clone()),
+                }
+
+                // Call init functions
+                match self.mode {
+                    AppMode::TUI(_) => (),
+                    AppMode::CLI(ref cli) => cli.init(),
                 }
             }
-            _ => (),
         }
-    }
-
-    pub fn render<B: Backend>(&self, frame: &mut Frame<B>) {
-        // TODO: Very much WIP, currently just renders the ratatui demo
-        let state = self.state();
-
-        let context = AppContext {
-            tab_index: state.current_tab.get_current().into(),
-            row_index: state.row_index.into(),
-        };
-
-        let root = Root::new(&context);
-
-        frame.render_widget(root, frame.size())
-    }
-
-    fn state(&self) -> Ref<State> {
-        self.state.borrow()
     }
 }
 
-/**
- * zero-based tab navigation
- */
-pub struct Tab {
-    max: u8,
-    current: u8,
+/// The app can be either in CLI mode (Only displays markdown text) or in TUI mode where it displays a full text based user interface
+pub enum AppMode {
+    TUI(Tui),
+    CLI(Cli),
 }
 
-impl Tab {
-    fn new(tab_count: u8) -> Self {
-        assert!(tab_count >= 1, "Cannot have less than one tab");
-
-        Self {
-            max: tab_count - 1,
-            current: 0,
-        }
-    }
-
-    fn next(&mut self) {
-        if self.current == self.max {
-            self.current = 0;
+impl AppMode {
+    /// Creates a new AppMode enum. Starts in TUI or CLI mode depending on the provided tui flag
+    pub fn new(terminal: Rc<Terminal>, tui: bool) -> Self {
+        if tui {
+            Self::TUI(Tui::new(terminal))
         } else {
-            self.current += 1;
+            Self::CLI(Cli::new(terminal))
         }
     }
 
-    fn prev(&mut self) {
-        if self.current == 0 {
-            self.current = self.max;
-        } else {
-            self.current -= 1;
-        }
+    /// Switch from cli mode to tui mode
+    pub fn to_tui(&mut self, terminal: Rc<Terminal>) {
+        *self = Self::TUI(Tui::new(terminal))
     }
 
-    pub fn get_current(&self) -> u8 {
-        self.current
+    /// Switch from tui mode to cli mode
+    pub fn to_cli(&mut self, terminal: Rc<Terminal>) {
+        *self = Self::CLI(Cli::new(terminal));
+    }
+}
+
+impl AppEventHandler for AppMode {
+    fn handle_event(&mut self, event: Event) -> bool {
+        match self {
+            AppMode::TUI(tui) => tui.handle_event(event),
+            AppMode::CLI(cli) => cli.handle_event(event),
+        }
     }
 }
