@@ -52,7 +52,6 @@ impl App {
                     }
                     KeyCode::Esc => {
                         // Exit tui mode
-                        log::info!("EXIT APP");
                         return true;
                     }
                     KeyCode::Char(char) => match char {
