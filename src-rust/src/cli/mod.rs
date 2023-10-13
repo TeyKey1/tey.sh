@@ -42,7 +42,7 @@ impl Cli {
         }
     }
 
-    pub fn init(&self) {
+    pub fn init(&mut self) {
         self.terminal.writeln(&format!(
             "{}{}type {} to see all commands",
             "\x1B[0;0H", // Move cursor to 0,0 coordinates
@@ -72,6 +72,11 @@ impl Cli {
             "cyan".bright_cyan(),
             "white".bright_white()
         ));
+
+        self.terminal
+            .write(&format!("{}{}", ansi_escapes::CursorNextLine, *CLI_PREFIX));
+
+        self.line_buffer.start_line();
     }
 
     /// Execute a cli command
@@ -87,17 +92,20 @@ impl AppEventHandler for Cli {
                     KeyCode::Backspace => self.line_buffer.backspace(),
                     KeyCode::Delete => self.line_buffer.del(),
                     KeyCode::Enter => {
-                        // Reset history cursor
+                        // Reset history
                         self.cmd_history.reset();
+
+                        let input = self.line_buffer.get_buffer().to_owned();
+                        let trimmed = input.trim();
 
                         self.line_buffer.end_line();
 
-                        // strip leading and trailing whitespace
+                        if !trimmed.is_empty() {
+                            self.execute_command();
 
-                        // send command and write a new line
-                        self.execute_command();
-
-                        // send command to history
+                            // send command to history
+                            self.cmd_history.push(trimmed);
+                        }
 
                         self.line_buffer.start_line();
                     }
@@ -105,10 +113,17 @@ impl AppEventHandler for Cli {
                     KeyCode::Right => self.line_buffer.move_cursor_right(),
                     KeyCode::Up => {
                         // get previous input from history if any
-                        self.cmd_history.get_next();
+                        self.cmd_history
+                            .cache_user_input(self.line_buffer.get_buffer());
+
+                        if let Some(history_entry) = self.cmd_history.get_next() {
+                            self.line_buffer.set_buffer(history_entry);
+                        }
                     }
                     KeyCode::Down => {
-                        self.cmd_history.get_prev();
+                        if let Some(history_entry) = self.cmd_history.get_prev() {
+                            self.line_buffer.set_buffer(history_entry);
+                        }
                     }
                     KeyCode::Tab => {
                         // handle autocompletion
@@ -119,6 +134,7 @@ impl AppEventHandler for Cli {
 
                 false
             }
+
             _ => false,
         }
     }

@@ -14,18 +14,18 @@ impl History {
     /// Create a new history with the specified max size
     pub fn new(max_size: usize) -> Self {
         Self {
-            history: vec![],
+            history: vec![String::from("")], // Initialize with user input cache entry
             current_pos: 0,
             max_size,
         }
     }
 
     pub fn get_next(&mut self) -> Option<&str> {
-        self.current_pos += 1;
-
-        if self.current_pos >= self.history.len() {
+        if self.current_pos >= self.history.len() - 1 {
             None
         } else {
+            self.current_pos += 1;
+
             let res = Some(self.history[self.current_pos].as_str());
 
             res
@@ -50,22 +50,34 @@ impl History {
     ///
     /// If the history contains already `max_size` entries the oldest entry is discarded
     pub fn push(&mut self, entry: &str) {
+        if self.history.len() > 1 {
+            // History has at least one history entry
+            if self.history[1] == entry {
+                // History already has a similar adjacent entry
+                return;
+            }
+        }
+
         if self.history.len() == self.max_size {
             self.history.truncate(self.max_size - 1);
         }
 
-        self.history.push(entry.to_owned());
+        self.history.insert(1, entry.to_owned());
     }
 
     /// Stores the current user input as first entry in the history
     ///
     /// This should be called each time the user starts browsing the history
-    ///
-    /// # Panics
-    /// If called while the user is currently browsing the history eg. [reset()] has not been called
     pub fn cache_user_input(&mut self, input: &str) {
-        assert_eq!(self.current_pos, 0, "Called cache_user_input while user was still browisng the history. Call reset() on the history before caching new user input.");
+        if self.current_pos != 0 {
+            // User is already browsing the history so no need to cache the user input
+            return;
+        }
 
-        self.history[0] = input.to_owned();
+        if self.history.is_empty() {
+            self.history.push(input.to_owned());
+        } else {
+            self.history[0] = input.to_owned();
+        }
     }
 }

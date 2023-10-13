@@ -16,7 +16,6 @@ pub fn init() -> Result<Terminal, JsValue> {
             .with_font_family("monospace")
             .with_draw_bold_text_in_bright_colors(true)
             .with_right_click_selects_word(true)
-            .with_scrollback(0)
             .with_theme(&terminal_theme()),
     );
 

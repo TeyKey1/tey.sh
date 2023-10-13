@@ -49,7 +49,7 @@ impl App {
                 // Call init functions
                 match self.mode {
                     AppMode::TUI(_) => (),
-                    AppMode::CLI(ref cli) => cli.init(),
+                    AppMode::CLI(ref mut cli) => cli.init(),
                 }
             }
         }
