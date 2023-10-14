@@ -192,8 +192,9 @@ impl TextInput {
 
         // Move cursor to beginning of current prompt and erase everything below before rerendering input
         self.terminal.write(&format!(
-            "{}{}",
+            "{}{}{}",
             ansi_escapes::CursorRestorePosition,
+            ansi_escapes::EraseLine,
             ansi_escapes::EraseDown
         ));
 

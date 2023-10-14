@@ -9,8 +9,10 @@ use xterm_js_rs::Terminal;
 
 use crate::app::AppEventHandler;
 
+mod commands;
 mod emulate;
 
+use commands::CommandRegistry;
 use emulate::history::History;
 use emulate::text_input::TextInput;
 
@@ -31,6 +33,8 @@ pub struct Cli {
     cmd_history: History,
     /// Typed characters on current terminal row
     line_buffer: TextInput,
+    /// Commands available
+    commands: CommandRegistry,
 }
 
 impl Cli {
@@ -38,7 +42,8 @@ impl Cli {
         Self {
             terminal: terminal.clone(),
             cmd_history: History::new(MAX_HISTORY_SIZE),
-            line_buffer: TextInput::new(terminal),
+            line_buffer: TextInput::new(terminal.clone()),
+            commands: CommandRegistry::new(terminal),
         }
     }
 
@@ -78,9 +83,6 @@ impl Cli {
 
         self.line_buffer.start_line();
     }
-
-    /// Execute a cli command
-    pub fn execute_command(&self) {}
 }
 
 impl AppEventHandler for Cli {
@@ -101,7 +103,7 @@ impl AppEventHandler for Cli {
                         self.line_buffer.end_line();
 
                         if !trimmed.is_empty() {
-                            self.execute_command();
+                            self.commands.execute(trimmed);
 
                             // send command to history
                             self.cmd_history.push(trimmed);
