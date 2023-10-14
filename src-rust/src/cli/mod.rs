@@ -3,7 +3,7 @@
 use std::rc::Rc;
 
 use colored::*;
-use crossterm::event::KeyCode;
+use crossterm::event::{KeyCode, KeyModifiers};
 use lazy_static::lazy_static;
 use xterm_js_rs::Terminal;
 
@@ -128,7 +128,17 @@ impl AppEventHandler for Cli {
                     KeyCode::Tab => {
                         // handle autocompletion
                     }
-                    KeyCode::Char(char) => self.line_buffer.input_char(char),
+                    KeyCode::Char(char) => {
+                        if event.modifiers.is_empty() {
+                            self.line_buffer.input_char(char);
+                        } else if event.modifiers == KeyModifiers::CONTROL {
+                            match char {
+                                'a' => self.line_buffer.move_cursor_start(),
+                                'e' => self.line_buffer.move_cursor_end(),
+                                _ => (),
+                            }
+                        }
+                    }
                     _ => (),
                 }
 
