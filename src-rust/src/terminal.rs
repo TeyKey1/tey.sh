@@ -12,11 +12,13 @@ pub fn init() -> Result<Terminal, JsValue> {
     let terminal = Terminal::new(
         TerminalOptions::new()
             .with_cursor_width(10)
-            .with_font_size(20)
+            .with_font_size(18)
             .with_font_family("monospace")
             .with_draw_bold_text_in_bright_colors(true)
             .with_right_click_selects_word(true)
-            .with_theme(&terminal_theme()),
+            .with_theme(&terminal_theme())
+            .with_tab_stop_width(2)
+            .with_convert_eol(true),
     );
 
     let wrapper_element = web_sys::window()

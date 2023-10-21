@@ -4,8 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "npm run wasm && vite dev",
-    "build": "vite build",
-    "wasm": "wasm-pack build ./src-rust --target web",
+    "build": "npm run wasm-prod && vite build",
+    "wasm": "wasm-pack build ./src-rust --target web --dev",
+    "wasm-prod": "wasm-pack build ./src-rust --target web --release",
     "preview": "vite preview",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",

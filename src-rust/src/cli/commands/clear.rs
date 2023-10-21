@@ -1,25 +1,11 @@
-use std::rc::Rc;
-
-use xterm_js_rs::Terminal;
-
 use super::Command;
 
-pub struct Clear {
-    terminal: Rc<Terminal>,
-}
-
-impl Clear {
-    pub fn new(terminal: Rc<Terminal>) -> Self {
-        Self { terminal }
-    }
-}
+pub struct Clear;
 
 impl Command for Clear {
-    fn matches(&self, command: &str) -> bool {
-        command == "clear"
-    }
-
-    fn execute(&self) {
-        self.terminal.clear();
+    fn execute(&self, _tokens: &Vec<&str>, terminal: &xterm_js_rs::Terminal) -> bool {
+        // TODO: Behavior if command is invoked with args
+        terminal.clear();
+        false
     }
 }

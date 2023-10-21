@@ -12,7 +12,7 @@ use crate::app::AppEventHandler;
 mod commands;
 mod emulate;
 
-use commands::CommandRegistry;
+use commands::CommandManager;
 use emulate::history::History;
 use emulate::text_input::TextInput;
 
@@ -34,7 +34,7 @@ pub struct Cli {
     /// Typed characters on current terminal row
     line_buffer: TextInput,
     /// Commands available
-    commands: CommandRegistry,
+    commands: CommandManager,
 }
 
 impl Cli {
@@ -43,7 +43,7 @@ impl Cli {
             terminal: terminal.clone(),
             cmd_history: History::new(MAX_HISTORY_SIZE),
             line_buffer: TextInput::new(terminal.clone()),
-            commands: CommandRegistry::new(terminal),
+            commands: CommandManager::new(terminal),
         }
     }
 
@@ -54,6 +54,7 @@ impl Cli {
             *CLI_PREFIX,
             "tey.sh --help".green(),
         ));
+        self.terminal.writeln("\u{1b}[1m\u{1b}[4mUsage:\u{1b}[0m \u{1b}[1mtey.sh\u{1b}[0m \u{1b}[1m--version\u{1b}[0m");
         self.terminal.write(CLI_PREFIX.as_str());
         self.terminal.write(&format!(
             "{} {} {} {} {} {} {} {}",
@@ -89,6 +90,8 @@ impl AppEventHandler for Cli {
     fn handle_event(&mut self, event: crossterm::event::Event) -> bool {
         match event {
             crossterm::event::Event::Key(event) => {
+                let mut switch_context = false;
+
                 match event.code {
                     KeyCode::Esc => return true,
                     KeyCode::Backspace => self.line_buffer.backspace(),
@@ -103,7 +106,7 @@ impl AppEventHandler for Cli {
                         self.line_buffer.end_line();
 
                         if !trimmed.is_empty() {
-                            self.commands.execute(trimmed);
+                            switch_context = self.commands.execute(trimmed);
 
                             // send command to history
                             self.cmd_history.push(trimmed);
@@ -131,7 +134,7 @@ impl AppEventHandler for Cli {
                         // handle autocompletion
                     }
                     KeyCode::Char(char) => {
-                        if event.modifiers.is_empty() {
+                        if event.modifiers.is_empty() || event.modifiers == KeyModifiers::SHIFT {
                             self.line_buffer.input_char(char);
                         } else if event.modifiers == KeyModifiers::CONTROL {
                             match char {
@@ -144,7 +147,7 @@ impl AppEventHandler for Cli {
                     _ => (),
                 }
 
-                false
+                switch_context
             }
 
             _ => false,
