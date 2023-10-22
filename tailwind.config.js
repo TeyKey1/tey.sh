@@ -1,6 +1,5 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [],
   content: ["./src/**/*.{html,js,svelte,ts}"],
   theme: {
     colors: {
@@ -12,7 +11,11 @@ export default {
       white: "#EEEEEE",
       black: "#080808",
     },
-    extend: {},
+    extend: {
+      fontFamily: {
+        sans: ["Ubuntu Mono", "monospace"],
+      },
+    },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/typography")],
 };
