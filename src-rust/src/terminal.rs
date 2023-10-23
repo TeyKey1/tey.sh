@@ -13,7 +13,7 @@ pub fn init() -> Result<Terminal, JsValue> {
         TerminalOptions::new()
             .with_cursor_width(10)
             .with_font_size(18)
-            .with_font_family("monospace")
+            .with_font_family("'JetBrains Mono', monospace")
             .with_draw_bold_text_in_bright_colors(true)
             .with_right_click_selects_word(true)
             .with_theme(&terminal_theme())

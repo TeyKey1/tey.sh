@@ -13,7 +13,7 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ["Ubuntu Mono", "monospace"],
+        sans: ["JetBrains Mono", "monospace"],
       },
     },
   },
