@@ -12,6 +12,14 @@ export default {
       white: "#EEEEEE",
       "white-dim": "#FFFFFF80",
       black: "#080808",
+      "cli-black": "002221",
+      "cli-red": "#EA3431",
+      "cli-green": "#00B6B6",
+      "cli-yellow": "#E7BF00",
+      "cli-blue": "#4894FD",
+      "cli-magenta": "#E01DCA",
+      "cli-cyan": "#1AB2AD",
+      "cli-white": "#FFFFFF",
     },
     extend: {
       fontFamily: {

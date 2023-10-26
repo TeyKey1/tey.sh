@@ -59,7 +59,7 @@ fn terminal_theme() -> Theme {
         .with_foreground("#FFFFFF")
         // Colors
         .with_black("#002221")
-        .with_red("#EA3431")
+        .with_red("#C9453E")
         .with_green("#00B6B6")
         .with_yellow("#E7BF00")
         .with_blue("#4894FD")
@@ -68,7 +68,7 @@ fn terminal_theme() -> Theme {
         .with_white("#FFFFFF")
         // Bright colors
         .with_bright_black("#006562")
-        .with_bright_red("#EA3431")
+        .with_bright_red("#C9453E")
         .with_bright_green("#00B6B6")
         .with_bright_yellow("#E7BF00")
         .with_bright_blue("#4894FD")

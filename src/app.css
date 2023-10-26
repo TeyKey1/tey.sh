@@ -12,3 +12,49 @@ body {
   /* Never show scrollbar on terminal */
   overflow-y: hidden !important;
 }
+
+/* ===== Scrollbar CSS ===== */
+/* lazily made with https://codepen.io/stephenpaton-tech/full/JjRvGmY */
+/* Firefox */
+* {
+  scrollbar-width: auto;
+  scrollbar-color: theme("colors.white-dim") theme("colors.black");
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 16px;
+}
+
+*::-webkit-scrollbar-track {
+  background: theme("colors.black");
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: theme("colors.white-dim");
+  border-radius: 10px;
+  border: 5px solid theme("colors.black");
+}
+
+/* Tailwind typography styling */
+.prose em {
+  color: theme("colors.white-dim");
+}
+
+.prose h1::before {
+  content: "# ";
+  color: theme("colors.main");
+}
+
+.prose h2::before {
+  content: "## ";
+  color: theme("colors.cli-magenta");
+}
+
+.prose h2 {
+  margin-bottom: 0.2rem;
+}
+
+.prose a {
+  color: theme("colors.cli-green");
+}
