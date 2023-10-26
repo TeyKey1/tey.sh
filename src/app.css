@@ -10,7 +10,7 @@ body {
 
 .xterm .xterm-viewport {
   /* Never show scrollbar on terminal */
-  overflow-y: hidden !important;
+  /*overflow-y: hidden !important;*/
 }
 
 /* ===== Scrollbar CSS ===== */

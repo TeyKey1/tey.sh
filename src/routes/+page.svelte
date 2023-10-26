@@ -48,8 +48,6 @@
   bind:this={htmlContentWrapper}
 >
   {@html home}
-  <h1>Skills</h1>
   {@html skills}
-  <h1>Projects</h1>
   {@html projects}
 </div>

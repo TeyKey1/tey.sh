@@ -74,7 +74,6 @@
 
           if (foundHtmlWrapper && foundModeButton) {
             observer.disconnect();
-            console.log("disconnect");
             return;
           }
         }

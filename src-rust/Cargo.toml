@@ -12,7 +12,7 @@ crate-type = ["cdylib", "rlib"]
 
 [dependencies]
 wasm-bindgen = "0.2"
-xterm-js-rs = { git="https://github.com/TeyKey1/xterm-js-rs", features=["xterm-addon-fit", "crossterm"]}
+xterm-js-rs = { git="https://github.com/TeyKey1/xterm-js-rs", features=["xterm-addon-fit", "xterm-addon-web-links", "crossterm"]}
 crossterm = {git = "https://github.com/TeyKey1/crossterm", features = ["event-stream"]}
 web-sys = {version = "0.3", features = ["Window", "Document"]}
 console_error_panic_hook = "0.1"
@@ -33,6 +33,7 @@ strip-ansi-escapes = "0.2"
 clap = {version = "4.4", features=["color", "cargo"]}
 getrandom = { version = "0.2", features = ["js"] }
 rand = {version = "0.8", features = ["small_rng"]}
+markdown = "1.0.0-alpha.14"
 
 [profile.release]
 opt-level = "s" # small code size (due to web)

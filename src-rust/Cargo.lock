@@ -404,6 +404,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "markdown"
+version = "1.0.0-alpha.14"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d2a51befc5a2b4a052c473ffbc9ad462e358de59dcc2fde4997fd2a16403dcbd"
+dependencies = [
+ "unicode-id",
+]
+
+[[package]]
 name = "memory_units"
 version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -715,6 +724,7 @@ dependencies = [
  "itertools",
  "lazy_static",
  "log",
+ "markdown",
  "palette",
  "rand",
  "ratatui",
@@ -775,6 +785,12 @@ dependencies = [
  "quote",
  "unicode-ident",
 ]
+
+[[package]]
+name = "unicode-id"
+version = "0.3.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "b1b6def86329695390197b82c1e244a54a131ceb66c996f2088a3876e2ae083f"
 
 [[package]]
 name = "unicode-ident"

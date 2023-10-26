@@ -1,7 +1,9 @@
 use wasm_bindgen::{prelude::Closure, JsCast, JsValue};
 use web_sys::UiEvent;
 use xterm_js_rs::xterm::Terminal;
-use xterm_js_rs::{addons::fit::FitAddon, TerminalOptions, Theme};
+use xterm_js_rs::{
+    addons::fit::FitAddon, addons::web_links::WebLinksAddon, TerminalOptions, Theme,
+};
 
 use crate::util::window;
 
@@ -32,12 +34,15 @@ pub fn init() -> Result<Terminal, JsValue> {
     terminal.focus();
 
     // Make terminal responsive
-    let addon = FitAddon::new();
-    terminal.load_addon(addon.clone().dyn_into::<FitAddon>()?.into());
-    addon.fit();
+    let fit_addon = FitAddon::new();
+    terminal.load_addon(fit_addon.clone().dyn_into::<FitAddon>()?.into());
+    fit_addon.fit();
+
+    let link_addon = WebLinksAddon::new(None, None, None);
+    terminal.load_addon(link_addon.dyn_into::<WebLinksAddon>()?.into());
 
     let callback = Closure::wrap(Box::new(move |_: UiEvent| {
-        addon.fit();
+        fit_addon.fit();
     }) as Box<dyn FnMut(_)>);
 
     window()

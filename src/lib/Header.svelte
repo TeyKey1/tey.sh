@@ -28,7 +28,6 @@
   }
 
   function changeAppMode() {
-    console.log("handfle ap mode chagne " + $appMode);
     if ($appMode === AppMode.Html) {
       $appMode = AppMode.Terminal;
     } else {
