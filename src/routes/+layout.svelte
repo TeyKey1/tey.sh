@@ -88,9 +88,7 @@
 </svelte:head>
 
 <div class="px-4 lg:px-8 w-full">
-  <div class="h-12 mb-4">
-    <Header />
-  </div>
+  <Header />
 
   <div bind:this={contentWrapper}>
     <slot />
