@@ -3,6 +3,7 @@ use wasm_bindgen::prelude::*;
 
 mod app;
 mod cli;
+mod content;
 mod terminal;
 mod tui;
 mod util;
@@ -22,6 +23,8 @@ pub async fn main() -> Result<(), JsValue> {
 
     // Override colored auto detect of the terminals coloring ability (xtermjs does not set the required variables for autodetect)
     colored::control::set_override(true);
+
+    content::prepare_content();
 
     // Create and start app
     let app = App::new()?;

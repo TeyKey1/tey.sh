@@ -11,7 +11,6 @@ use crate::app::AppEventHandler;
 
 mod commands;
 mod emulate;
-mod render_md;
 
 use commands::CommandManager;
 use emulate::history::History;
@@ -49,8 +48,6 @@ impl Cli {
     }
 
     pub fn init(&mut self) {
-        render_md::render_md(include_str!("../../../content/projects.md"));
-
         self.terminal.writeln(&format!(
             "{}{}type {} to see all commands",
             "\x1B[0;0H", // Move cursor to 0,0 coordinates

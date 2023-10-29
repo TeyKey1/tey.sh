@@ -3,20 +3,16 @@ use std::rc::Rc;
 use itertools::Itertools;
 use ratatui::{prelude::*, widgets::*};
 
+use crate::tui::app::State;
+
 use super::{tabs::*, THEME};
 
-#[derive(Debug, Default, Clone, Copy)]
-pub struct AppContext {
-    pub tab_index: usize,
-    pub row_index: usize,
-}
-
 pub struct Root<'a> {
-    context: &'a AppContext,
+    context: &'a State,
 }
 
 impl<'a> Root<'a> {
-    pub fn new(context: &'a AppContext) -> Self {
+    pub fn new(context: &'a State) -> Self {
         Root { context }
     }
 }
@@ -36,23 +32,22 @@ impl Root<'_> {
         let area = layout(area, Direction::Horizontal, vec![0, 45]);
 
         Paragraph::new(Span::styled("", THEME.app_title)).render(area[0], buf);
-        let titles = vec!["", " Recipe ", " Email ", " Traceroute ", " Weather "];
+        let titles = vec!["", " Skills ", " Projects ", " About "];
         Tabs::new(titles)
             .style(THEME.tabs)
             .highlight_style(THEME.tabs_selected)
-            .select(self.context.tab_index)
+            .select(self.context.tab.get_current())
             .divider("")
             .render(area[1], buf);
     }
 
     fn render_selected_tab(&self, area: Rect, buf: &mut Buffer) {
         let row_index = self.context.row_index;
-        match self.context.tab_index {
-            0 => AboutTab::new(row_index).render(area, buf),
-            1 => RecipeTab::new(row_index).render(area, buf),
-            2 => EmailTab::new(row_index).render(area, buf),
-            3 => TracerouteTab::new(row_index).render(area, buf),
-            //4 => WeatherTab::new(row_index).render(area, buf),
+        match self.context.tab.get_current() {
+            0 => HomeTab::new(row_index).render(area, buf),
+            1 => SkillsTab::new(row_index).render(area, buf),
+            2 => ProjectsTab::new(row_index).render(area, buf),
+            3 => AboutTab::new(row_index).render(area, buf),
             _ => unreachable!(),
         };
     }

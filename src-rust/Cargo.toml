@@ -34,6 +34,7 @@ clap = {version = "4.4", features=["color", "cargo"]}
 getrandom = { version = "0.2", features = ["js"] }
 rand = {version = "0.8", features = ["small_rng"]}
 markdown = "1.0.0-alpha.14"
+ansi-to-tui = {git="https://github.com/TeyKey1/ansi-to-tui"}
 
 [profile.release]
 opt-level = "s" # small code size (due to web)

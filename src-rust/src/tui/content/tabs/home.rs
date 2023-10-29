@@ -1,7 +1,11 @@
+use ansi_to_tui::IntoText;
 use itertools::Itertools;
 use ratatui::{prelude::*, widgets::*};
 
-use crate::tui::demo::{layout, RgbSwatch, THEME};
+use crate::{
+    content::{MD_HOME_RENDERED_TUI, MD_HOME_TUI_RENDERED},
+    tui::content::{layout, RgbSwatch, THEME},
+};
 
 const RATATUI_LOGO: [&str; 32] = [
     "               ███              ",
@@ -38,26 +42,26 @@ const RATATUI_LOGO: [&str; 32] = [
     "  █xxxxxxxxxxxxxxxxxxxxx█ █     ",
 ];
 
-pub struct AboutTab {
+pub struct HomeTab {
     selected_row: usize,
 }
 
-impl AboutTab {
+impl HomeTab {
     pub fn new(selected_row: usize) -> Self {
         Self { selected_row }
     }
 }
 
-impl Widget for AboutTab {
+impl Widget for HomeTab {
     fn render(self, area: Rect, buf: &mut Buffer) {
         RgbSwatch.render(area, buf);
         let area = layout(area, Direction::Horizontal, vec![34, 0]);
-        render_crate_description(area[1], buf);
+        render_home_text(area[1], buf);
         render_logo(self.selected_row, area[0], buf);
     }
 }
 
-fn render_crate_description(area: Rect, buf: &mut Buffer) {
+fn render_home_text(area: Rect, buf: &mut Buffer) {
     let area = area.inner(
         &(Margin {
             vertical: 4,
@@ -73,18 +77,17 @@ fn render_crate_description(area: Rect, buf: &mut Buffer) {
         }),
     );
 
-    let text = format!(
-        "- cooking up terminal user interfaces -
-       
-    Ratatui is a Rust crate that provides widgets (e.g. Paragraph, Table) and draws them to the \
-    screen efficiently every frame.\n",
-    );
+    let (title, content) = &*MD_HOME_RENDERED_TUI;
+
+    let text = format!("\n{}{}", content, *MD_HOME_TUI_RENDERED)
+        .into_text()
+        .expect("Failed to convert ansi escapes to tui text");
 
     Paragraph::new(text)
         .style(THEME.description)
         .block(
             Block::new()
-                .title(" Ratatui ")
+                .title(format!(" {} ", title))
                 .title_alignment(Alignment::Center)
                 .borders(Borders::TOP)
                 .border_style(THEME.description_title)

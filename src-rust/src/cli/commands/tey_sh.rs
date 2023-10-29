@@ -1,9 +1,10 @@
 use clap::{arg, Command as ClapCommand};
 use colored::*;
-use lazy_static::lazy_static;
 use xterm_js_rs::Terminal;
 
-use crate::cli::render_md::render_md;
+use crate::content::{
+    MD_ABOUT_RENDERED, MD_HOME_RENDERED, MD_PROJECTS_RENDERED, MD_SKILLS_RENDERED,
+};
 
 use super::Command;
 
@@ -14,13 +15,6 @@ const TEY_SH_ASCII_LOGO: &'static str = " _                   _
  \\__\\___|\\__, (_)___/_| |_|
           |___/             
 ";
-
-lazy_static! {
-    static ref MD_ABOUT: String = render_md(include_str!("../../../../content/about.md"));
-    static ref MD_HOME: String = render_md(include_str!("../../../../content/home.md"));
-    static ref MD_PROJECTS: String = render_md(include_str!("../../../../content/projects.md"));
-    static ref MD_SKILLS: String = render_md(include_str!("../../../../content/skills.md"));
-}
 
 pub struct TeySh {
     command: ClapCommand,
@@ -82,7 +76,7 @@ impl Command for TeySh {
                 match subcommand {
                     "tui" => return true, // Switch to tui mode
                     "cli" => {
-                        let content = format!("{}{}{}{}", *MD_HOME, *MD_SKILLS, *MD_PROJECTS, *MD_ABOUT);
+                        let content = format!("{}{}{}{}", *MD_HOME_RENDERED, *MD_SKILLS_RENDERED, *MD_PROJECTS_RENDERED, *MD_ABOUT_RENDERED);
                         terminal.write(&content);
                     },
                     _ => panic!("Failed to find a matching subcommand. This is a bug, please verify if all registered subcommands are properly handled in the execute function.")

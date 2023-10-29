@@ -8,6 +8,40 @@ pub fn render_md(md: &str) -> String {
     let ast = markdown::to_mdast(md, &ParseOptions::default())
         .expect("Failed to parse the provided markdown string");
 
+    render(ast)
+}
+
+/// Removes the first heading of the provided markdown and returns it in the tuple. Renders the rest of the markdown and returns it.
+///
+/// # Panics
+/// If the provided markdown does not have a heading as the first node
+pub fn split_md_title(md: &str) -> (String, String) {
+    let mut ast = markdown::to_mdast(md, &ParseOptions::default())
+        .expect("Failed to parse the provided markdown string");
+
+    let mut title = String::new();
+
+    if let Some(children) = ast.children_mut() {
+        if let Some(first_element) = children.first() {
+            match first_element {
+                Node::Heading(heading) => {
+                    render_text(&heading.children, &mut title);
+                    children.remove(0);
+                }
+                other => panic!(
+                    "Expected first markdown element to be a heading but found: {:?}",
+                    other,
+                ),
+            }
+        }
+    }
+
+    let rendered = render(ast);
+
+    (title, rendered)
+}
+
+fn render(ast: Node) -> String {
     let mut content = String::new();
 
     if let Some(children) = ast.children() {
@@ -23,10 +57,6 @@ pub fn render_md(md: &str) -> String {
             }
         }
     }
-
-    /*traverse_md_tree(&ast, &|node| {
-        log::debug!("{:?}", node);
-    });*/
 
     content
 }

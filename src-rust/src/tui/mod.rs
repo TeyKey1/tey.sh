@@ -18,7 +18,7 @@ use xterm_js_rs::{crossterm::XtermJsCrosstermBackend, Terminal};
 use crate::{app::AppEventHandler, util::window};
 
 mod app;
-mod demo;
+mod content;
 
 use app::App;
 

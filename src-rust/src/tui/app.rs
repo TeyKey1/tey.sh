@@ -3,17 +3,17 @@ use std::cell::{Ref, RefCell};
 use crossterm::event::{Event, KeyCode};
 use ratatui::{prelude::Backend, Frame};
 
-use super::demo::{AppContext, Root};
+use super::content::Root;
 
 /// Amount of tabs of this application
-const TAB_COUNT: u8 = 4;
+const TAB_COUNT: usize = 4;
 
 /**
  * State of the app
  */
 pub struct State {
-    pub current_tab: Tab,
-    pub row_index: u16,
+    pub tab: Tab,
+    pub row_index: usize,
 }
 
 pub struct App {
@@ -24,7 +24,7 @@ impl App {
     pub fn new() -> Self {
         Self {
             state: RefCell::new(State {
-                current_tab: Tab::new(TAB_COUNT),
+                tab: Tab::new(TAB_COUNT),
                 row_index: 0,
             }),
         }
@@ -37,10 +37,10 @@ impl App {
 
                 match event.code {
                     KeyCode::Tab => {
-                        app_state.current_tab.next();
+                        app_state.tab.next();
                     }
                     KeyCode::BackTab => {
-                        app_state.current_tab.prev();
+                        app_state.tab.prev();
                     }
                     KeyCode::Up => {
                         // TODO: Very unsafe, need a wrapper like Tab which keeps track of term size and current row
@@ -68,15 +68,9 @@ impl App {
     }
 
     pub fn render<B: Backend>(&self, frame: &mut Frame<B>) {
-        // TODO: Very much WIP, currently just renders the ratatui demo
         let state = self.state();
 
-        let context = AppContext {
-            tab_index: state.current_tab.get_current().into(),
-            row_index: state.row_index.into(),
-        };
-
-        let root = Root::new(&context);
+        let root = Root::new(&state);
 
         frame.render_widget(root, frame.size())
     }
@@ -90,12 +84,12 @@ impl App {
  * zero-based tab navigation
  */
 pub struct Tab {
-    max: u8,
-    current: u8,
+    max: usize,
+    current: usize,
 }
 
 impl Tab {
-    fn new(tab_count: u8) -> Self {
+    fn new(tab_count: usize) -> Self {
         assert!(tab_count >= 1, "Cannot have less than one tab");
 
         Self {
@@ -120,7 +114,7 @@ impl Tab {
         }
     }
 
-    pub fn get_current(&self) -> u8 {
+    pub fn get_current(&self) -> usize {
         self.current
     }
 }
