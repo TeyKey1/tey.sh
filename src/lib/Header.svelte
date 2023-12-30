@@ -2,11 +2,11 @@
   // Components
   import GitHub from "$lib/logo-links/GitHub.svelte";
   import Matrix from "$lib/logo-links/Matrix.svelte";
-  import AppModeButton from "$lib/AppModeButton.svelte";
+  import Menu from "$lib/Menu/Menu.svelte";
 </script>
 
 <div class="flex w-full justify-between py-4">
-  <AppModeButton />
+  <Menu />
   <div class="flex">
     <GitHub />
     <Matrix />

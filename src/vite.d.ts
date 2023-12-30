@@ -25,3 +25,6 @@ declare module "*.md" {
   // Modify below per your usage
   export { html };
 }
+
+// Vite defines
+declare const APP_REPOSITORY: string;

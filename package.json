@@ -1,12 +1,14 @@
 {
-  "name": "personal-website-wasm",
+  "name": "tey.sh",
   "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TeyKey1/tey.sh.git"
+  },
   "private": true,
   "scripts": {
-    "dev": "npm run wasm && vite dev",
-    "build": "npm run wasm-prod && vite build",
-    "wasm": "wasm-pack build ./src-rust --target web --dev",
-    "wasm-prod": "wasm-pack build ./src-rust --target web --release",
+    "dev": "vite dev",
+    "build": "vite build",
     "preview": "vite preview",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
@@ -23,17 +25,17 @@
     "eslint": "^8.28.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-svelte": "^2.30.0",
+    "mdsvex": "^0.11.0",
     "postcss": "^8.4.29",
     "prettier": "^2.8.0",
     "prettier-plugin-svelte": "^2.10.1",
     "svelte": "^4.0.5",
     "svelte-check": "^3.4.3",
+    "svelte-preprocess": "^5.1.2",
     "tailwindcss": "^3.3.3",
     "tslib": "^2.4.1",
     "typescript": "^5.0.0",
-    "vite": "^4.4.2",
-    "vite-plugin-markdown": "2.2.0-2",
-    "vite-plugin-wasm-pack": "^0.1.12"
+    "vite": "^4.4.2"
   },
   "type": "module",
   "dependencies": {

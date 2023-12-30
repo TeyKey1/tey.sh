@@ -1,17 +1,12 @@
 import { sveltekit } from "@sveltejs/kit/vite";
-import wasmPack from "vite-plugin-wasm-pack";
-import { plugin as markdown, Mode } from "vite-plugin-markdown";
 import { defineConfig } from "vite";
 import path from "path";
+import npmPackage from "./package.json";
 
-const mdContentDir = path.resolve(__dirname, "./content");
+const mdContentDir = path.resolve(__dirname, "./til-content");
 
 export default defineConfig({
-  plugins: [
-    wasmPack(["./src-rust"]),
-    markdown({ mode: [Mode.HTML] }),
-    sveltekit(),
-  ],
+  plugins: [sveltekit()],
   resolve: {
     alias: {
       $content: mdContentDir,
@@ -21,5 +16,8 @@ export default defineConfig({
     fs: {
       allow: [mdContentDir],
     },
+  },
+  define: {
+    APP_REPOSITORY: JSON.stringify(npmPackage.repository.url),
   },
 });
