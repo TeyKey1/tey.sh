@@ -43,8 +43,8 @@
     </p>
   {:else if selectedItem === "Web"}
     <p>
-      I'm generally familiar with most of the essential web technologies. If you
-      need someone to implement Webservers (Rust, NodeJS, TypeScript) or create
+      I'm generally familiar with the essential web technologies. If you need
+      someone to implement Webservers (Rust, NodeJS, TypeScript) or create
       websites (Vue, Svelte, Tailwind CSS), you've come to the right place :)
     </p>
     <p>
@@ -74,7 +74,7 @@
     targets.
   </div>
 
-  <div slot="more">
+  <div slot="more" class="project-more">
     DESC
 
     <h3>Links</h3>
@@ -96,11 +96,11 @@
     news and information websites in the German-speaking region since 2008.
   </div>
 
-  <div slot="more">
+  <div slot="more" class="project-more">
     <p>
       In 2022, I took over the administration and development of FliegerWeb. At
       the time the website was fully utilizing Java for the frontend and backend
-      code (Struts 2, Tiles, Bootstrap) in combination with a MYSQL database.
+      code (Struts 2, Tiles, Bootstrap) in combination with a MySQL database.
     </p>
     <p>
       I improved the SEO aspects of this application, but over time it became
@@ -119,7 +119,7 @@
       as the general API and editing interface are working out of the box
       without the need to create a full-fledged CMS by hand. Most of the time
       was required to build scripts to fix a plethora of data inconsistencies
-      (broken links, Images, wrong formatting, etc.) in the existing MYSQL
+      (broken links, Images, wrong formatting, etc.) in the existing MySQL
       database due to previous reworks of FliegerWeb and bugs.
     </p>
     <p>
@@ -160,7 +160,7 @@
     library.
   </div>
 
-  <div slot="more">
+  <div slot="more" class="project-more">
     <p>
       Konva allows users to easily draw shapes and listen to events on HTML5
       canvas using JavaScript. svelte-konva combines and leverages Svelte's
@@ -184,7 +184,7 @@
     A Rust embedded-hal compatible driver for the PCA9535 IO-Expander chip.
   </div>
 
-  <div slot="more">
+  <div slot="more" class="project-more">
     <p>
       The driver is fully compatible with the Rust embedded-hal, allowing it to
       be used with many different target systems. The driver is automatically
@@ -253,3 +253,18 @@
   listen to a lot of music and recently started to collect my favorite tracks as
   vinyl records.
 </p>
+
+<style>
+  .project-more {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .project-more p {
+    margin-top: 0px;
+  }
+
+  .project-more h3 {
+    margin-top: 0px;
+  }
+</style>
