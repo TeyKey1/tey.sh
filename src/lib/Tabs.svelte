@@ -5,8 +5,8 @@
   let selectedItem: string = items[0] ?? "";
 </script>
 
-<div class="my-4 border-dark border-2 rounded-lg">
-  <div role="tablist" aria-label={label}>
+<div class="my-4">
+  <div role="tablist" aria-label={label} class="flex justify-center">
     {#each items as item}
       <button
         role="tab"
@@ -23,7 +23,11 @@
     {/each}
   </div>
 
-  <div role="tabpanel" id={`tabpanel-${selectedItem}`} class="px-4">
+  <div
+    role="tabpanel"
+    id={`tabpanel-${selectedItem}`}
+    class=" border-dark border-l-0"
+  >
     <slot {selectedItem} />
   </div>
 </div>

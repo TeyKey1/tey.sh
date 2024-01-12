@@ -8,7 +8,9 @@
 
 {#each data.posts as { slug, title, author, description, date }}
   <a href={`/TIL/${slug}`} class="no-underline">
-    <div class="p-4 my-4 border-dark border-2 rounded-lg">
+    <div
+      class="px-4 my-8 border-dark hover:border-white border-l-4 transition-colors"
+    >
       <h2 class="mt-0">{title}</h2>
       <em>{date} {author}</em>
       <p class="mb-0" style="color: var(--tw-prose-invert-body)">

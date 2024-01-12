@@ -5,7 +5,7 @@
   export let tech: string;
 </script>
 
-<div class="p-4 my-4 border-dark border-2 rounded-lg">
+<div class="px-4 my-8 border-dark border-l-4">
   <h2 class="mt-0">{title}</h2>
   <p><em>{tech}</em></p>
   <p><strong><slot name="desc" /></strong></p>
