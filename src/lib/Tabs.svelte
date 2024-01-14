@@ -12,8 +12,8 @@
         role="tab"
         aria-selected={selectedItem === item}
         aria-controls={`tabpanel-${item}`}
-        class="font-bold text-lg text-white px-4 transition-colors hover:bg-dark leading-relaxed"
-        class:bg-dark={selectedItem === item}
+        class="font-bold text-lg text-white px-4 transition-colors hover:bg-accent leading-relaxed"
+        class:bg-accent={selectedItem === item}
         on:click={() => {
           selectedItem = item;
         }}
@@ -26,7 +26,7 @@
   <div
     role="tabpanel"
     id={`tabpanel-${selectedItem}`}
-    class=" border-dark border-l-0"
+    class=" border-accent border-l-0"
   >
     <slot {selectedItem} />
   </div>

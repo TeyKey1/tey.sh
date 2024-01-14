@@ -4,14 +4,12 @@ export default {
   darkMode: "class",
   theme: {
     colors: {
-      light: "#FAF9FA",
-      "light-accent": "#8AB0B8",
+      // Dark theme
+      base: "#08222d",
       main: "#E7BF00",
-      dark: "#4f5861", //"#282835",
-      "dark-accent": "#C9453E",
-      white: "#EEEEEE",
-      "white-dim": "#FFFFFF80",
-      black: "#08222d", //"#080808", blue #08222d
+      accent: "#4f5861",
+      "dark-error": "#C9453E",
+      // CLI colors / terminal colors
       "cli-black": "002221",
       "cli-red": "#EA3431",
       "cli-green": "#00B6B6",
@@ -20,6 +18,9 @@ export default {
       "cli-magenta": "#E01DCA",
       "cli-cyan": "#1AB2AD",
       "cli-white": "#FFFFFF",
+      // Text colors
+      white: "#EEEEEE",
+      "white-dim": "#FFFFFF80",
     },
     extend: {
       fontFamily: {

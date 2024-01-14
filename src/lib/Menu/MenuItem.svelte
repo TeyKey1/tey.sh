@@ -11,8 +11,8 @@
 
 <a
   {href}
-  class="font-bold text-xl text-white px-1 mr-1 transition-colors hover:bg-dark leading-relaxed"
-  class:bg-dark={isActive}
+  class="font-bold text-xl text-white px-1 mr-1 transition-colors hover:bg-accent leading-relaxed"
+  class:bg-accent={isActive}
 >
   {name}
 </a>

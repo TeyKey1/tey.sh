@@ -8,10 +8,10 @@
 
 <div class="text-center max-w-2xl mx-auto">
   {#if status}
-    <p class="text-dark-accent font-bold text-4xl py-4">{status}</p>
+    <p class="text-dark-error font-bold text-4xl py-4">{status}</p>
   {/if}
 
-  <p class="text-dark-accent font-bold text-2xl py-4">
+  <p class="text-dark-error font-bold text-2xl py-4">
     {message}
   </p>
 

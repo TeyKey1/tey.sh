@@ -44,7 +44,7 @@
   disabled={copySuccessful}
   on:click={copyToClipboard}
   class:hidden={!showCopyButton}
-  class="absolute top-0 right-0 m-2 p-2 text-dark hover:text-white transition-colors"
+  class="absolute top-0 right-0 m-2 p-2 text-accent hover:text-white transition-colors"
   bind:this={copyButton}
 >
   {#if copySuccessful}
@@ -69,7 +69,7 @@
       viewBox="0 0 24 24"
       stroke-width="1.5"
       stroke="currentColor"
-      class="w-8 h-8 text-cli-red"
+      class="w-8 h-8 text-dark-error"
     >
       <path
         stroke-linecap="round"

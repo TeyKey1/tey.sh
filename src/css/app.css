@@ -8,32 +8,19 @@ body {
   height: 100%;
 }
 
-.xterm .xterm-viewport {
-  /* Never show scrollbar on terminal */
-  /*overflow-y: hidden !important;*/
-}
-
-/* ===== Scrollbar CSS ===== */
-/* lazily made with https://codepen.io/stephenpaton-tech/full/JjRvGmY */
-/* Firefox */
-* {
-  scrollbar-width: auto;
-  scrollbar-color: theme("colors.white-dim") theme("colors.black");
-}
-
 /* Chrome, Edge, and Safari */
 *::-webkit-scrollbar {
   width: 16px;
 }
 
 *::-webkit-scrollbar-track {
-  background: theme("colors.black");
+  background: theme("colors.base");
 }
 
 *::-webkit-scrollbar-thumb {
   background-color: theme("colors.white-dim");
   border-radius: 10px;
-  border: 5px solid theme("colors.black");
+  border: 5px solid theme("colors.base");
 }
 
 /* Tailwind typography styling */
