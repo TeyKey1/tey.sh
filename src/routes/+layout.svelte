@@ -1,8 +1,9 @@
 <script lang="ts">
-  // CSS
-  import "../app.css";
-  import "xterm/css/xterm.css";
   import { onMount } from "svelte";
+
+  // CSS
+  import "../css/app.css";
+  import "../css/prism.css";
 
   // Components
   import Header from "$lib/Header.svelte";

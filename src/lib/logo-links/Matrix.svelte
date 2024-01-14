@@ -1,4 +1,9 @@
-<a href="https://matrix.to/#/@teykey1:matrix.org" target="_blank" class="mx-2">
+<a
+  href="https://matrix.to/#/@teykey1:matrix.org"
+  aria-label="Thierry Kühni on Matrix"
+  target="_blank"
+  class="mx-2"
+>
   <svg
     xmlns="http://www.w3.org/2000/svg"
     version="1.1"

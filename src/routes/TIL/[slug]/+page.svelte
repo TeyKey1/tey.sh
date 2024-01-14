@@ -2,11 +2,11 @@
   import Article from "$lib/Article.svelte";
 
   import type { PageData } from "./$types";
-  import type { SvelteComponentTyped } from "svelte/internal";
+  import type { SvelteComponent } from "svelte";
 
   export let data: PageData;
 
-  type C = $$Generic<typeof SvelteComponentTyped<any, any, any>>;
+  type C = $$Generic<typeof SvelteComponent<any, any, any>>;
   $: component = data.component as unknown as C;
 </script>
 

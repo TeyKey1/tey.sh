@@ -1,8 +1,15 @@
 <script lang="ts">
+  import { onMount } from "svelte";
+  import { addCodeCopyButtons } from "$lib/code/copyCodeButton";
+
   export let date: string;
   export let author: string;
   export let title: string;
   export let description: string;
+
+  onMount(() => {
+    addCodeCopyButtons();
+  });
 </script>
 
 <article>

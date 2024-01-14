@@ -1,4 +1,9 @@
-<a href="https://github.com/TeyKey1" target="_blank" class="mx-2">
+<a
+  href="https://github.com/TeyKey1"
+  aria-label="Thierry Kühni on GitHub"
+  target="_blank"
+  class="mx-2"
+>
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 98 96"

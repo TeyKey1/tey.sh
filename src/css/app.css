@@ -58,3 +58,8 @@ body {
 .prose a {
   color: theme("colors.cli-green");
 }
+
+/* Used for code blocks to position code copy button*/
+pre {
+  position: relative;
+}

@@ -7,11 +7,11 @@ export default {
       light: "#FAF9FA",
       "light-accent": "#8AB0B8",
       main: "#E7BF00",
-      dark: "#282835",
+      dark: "#4f5861", //"#282835",
       "dark-accent": "#C9453E",
       white: "#EEEEEE",
       "white-dim": "#FFFFFF80",
-      black: "#080808",
+      black: "#08222d", //"#080808", blue #08222d
       "cli-black": "002221",
       "cli-red": "#EA3431",
       "cli-green": "#00B6B6",
