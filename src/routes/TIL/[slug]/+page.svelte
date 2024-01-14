@@ -13,8 +13,6 @@
 
   $: ({ title, description, date, author, keywords } = data.frontmatter);
 
-  $: console.log(date);
-
   $: simplifiedDate = new Date(date).toLocaleDateString("en-gb");
 </script>
 
