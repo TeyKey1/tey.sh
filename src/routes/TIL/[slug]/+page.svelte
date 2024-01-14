@@ -12,6 +12,10 @@
   $: component = data.component as unknown as C;
 
   $: ({ title, description, date, author, keywords } = data.frontmatter);
+
+  $: console.log(date);
+
+  $: simplifiedDate = new Date(date).toLocaleDateString("en-gb");
 </script>
 
 <SvelteSeo
@@ -36,6 +40,6 @@
   }}
 />
 
-<Article {author} {date} {title} {description}>
+<Article {author} date={simplifiedDate} {title} {description}>
   <svelte:component this={component} />
 </Article>

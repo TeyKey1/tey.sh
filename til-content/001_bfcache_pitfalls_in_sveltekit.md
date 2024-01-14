@@ -1,7 +1,7 @@
 ---
 title: bfcache pitfalls in SvelteKit
 description: In modern browsers, there's a thing called bfcache. If you never heard of it (like me a couple of weeks ago), this article might be worth a look.
-date: 2024-1-13
+date: 2024-1-14T15:52:00
 author: Thierry Kühni
 keywords: bfcache, SvelteKit, Svelte
 published: true

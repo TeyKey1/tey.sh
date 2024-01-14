@@ -39,7 +39,7 @@
       class="px-4 my-8 border-accent hover:border-white border-l-4 transition-colors"
     >
       <h2 class="mt-0">{title}</h2>
-      <em>{date} {author}</em>
+      <em>{new Date(date).toLocaleDateString("en-gb")} {author}</em>
       <p class="mb-0" style="color: var(--tw-prose-invert-body)">
         {description}
       </p>
