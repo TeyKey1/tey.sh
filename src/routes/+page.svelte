@@ -2,7 +2,32 @@
   // Components
   import ProjectCard from "$lib/ProjectCard.svelte";
   import Tabs from "$lib/Tabs.svelte";
+  import SvelteSeo from "svelte-seo";
+
+  const title = "Thierry Kühni | tey.sh";
+  const description =
+    "Hi there! You might have just found my website... Come on, get in :)";
+  const keywords = "Thierry Kühni, Portfolio, Terminal, Developer";
 </script>
+
+<SvelteSeo
+  {title}
+  {description}
+  {keywords}
+  jsonLd={{
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: title,
+    description,
+    keywords,
+  }}
+  openGraph={{ title, description, type: "website", site_name: "tey.sh" }}
+  twitter={{
+    card: "summary",
+    title,
+    description,
+  }}
+/>
 
 <section>
   <h1>Hi, I'm Thierry</h1>

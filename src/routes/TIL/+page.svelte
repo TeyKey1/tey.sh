@@ -1,8 +1,35 @@
 <script lang="ts">
   import type { PageData } from "./$types";
 
+  // Components
+  import SvelteSeo from "svelte-seo";
+
   export let data: PageData;
+
+  const title = "Today I learned... | tey.sh";
+  const description =
+    "Today I learned... Interesting topics about various things found in the world of a software developer";
+  const keywords = "Thierry Kühni, Portfolio, Terminal, Developer";
 </script>
+
+<SvelteSeo
+  {title}
+  {description}
+  {keywords}
+  jsonLd={{
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: title,
+    description,
+    keywords,
+  }}
+  openGraph={{ title, description, type: "website", site_name: "tey.sh" }}
+  twitter={{
+    card: "summary",
+    title,
+    description,
+  }}
+/>
 
 <h1>Today I learned...</h1>
 
