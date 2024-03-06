@@ -1,5 +1,5 @@
 ---
-title: Deadlocking linux subprocesses using pipes
+title: Deadlocking Linux subprocesses using pipes
 description:
   Recently, I ran into an interesting subprocess deadlock situation on Linux.
   TLDR be aware of pipe buffer sizes!
