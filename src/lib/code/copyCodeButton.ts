@@ -13,10 +13,17 @@ export function addCodeCopyButtons() {
     const code = codeBlock.textContent;
     const target = codeBlock.parentElement;
 
-    if (code === null || target === null) {
+    if (code === null || target === null || target.parentElement === null) {
       continue; // Do not display copy button
     }
 
-    new CopyCodeButton({ target, props: { code } });
+    // Wrap the code element in a div to prevent the button being scrolled with the content
+    const wrapperDiv = document.createElement("div");
+    wrapperDiv.classList.add("relative");
+
+    target.parentElement.insertBefore(wrapperDiv, target);
+    wrapperDiv.appendChild(target);
+
+    new CopyCodeButton({ target: wrapperDiv, props: { code } });
   }
 }
