@@ -259,7 +259,7 @@
       <p>
         The driver is fully compatible with the Rust embedded-hal, allowing it
         to be used with many different target systems. The driver is
-        automatically tested against the real hardware using a Raspberry Pi ,
+        automatically tested against the real hardware using a Raspberry Pi,
         roughly similar to HIL-Testing.
       </p>
 
