@@ -128,7 +128,7 @@ primitive, rendering all type checks useless.
 
 After some googling, I found the right approach to using phantom data in
 TypeScript. In TypeScript, the approach outlined below is also more popularly
-called "type branding," in case you want to further read into the topic. The
+called "type branding", in case you want to further read into the topic. The
 modifications required to the `Event` type to enforce the phantom data without
 TypeScript complaining look like this:
 
