@@ -12,8 +12,8 @@ export const load: PageServerLoad = async ({ url }) => {
         ({
           slug: slugFromPath(path),
           ...(post as unknown as App.MdsvexFile).metadata,
-        } as App.TilPost)
-    )
+        }) as App.TilPost,
+    ),
   );
 
   const posts = await Promise.all(postPromises);
