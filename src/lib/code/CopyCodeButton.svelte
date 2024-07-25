@@ -3,12 +3,12 @@
 
   const COPY_FEEDBACK_TIMEOUT_MS = 1000;
 
-  export let code: string;
+  let { code }: { code: string } = $props();
 
-  let hoveringCode = false;
-  let showCopyButton = false;
-  let copySuccessful = false;
-  let copyError = false;
+  let hoveringCode = $state(false);
+  let copySuccessful = $state(false);
+  let showCopyButton = $derived(hoveringCode || copySuccessful);
+  let copyError = $state(false);
   let copyButton: HTMLButtonElement;
 
   async function copyToClipboard() {
@@ -38,14 +38,12 @@
       hoveringCode = false;
     });
   });
-
-  $: showCopyButton = hoveringCode || copySuccessful;
 </script>
 
 <button
   aria-label="copy code to clipboard"
   disabled={copySuccessful}
-  on:click={copyToClipboard}
+  onclick={copyToClipboard}
   class:hidden={!showCopyButton}
   class="absolute top-0 right-0 m-2 p-2 text-accent hover:text-white transition-colors"
   bind:this={copyButton}

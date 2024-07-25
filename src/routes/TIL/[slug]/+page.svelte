@@ -6,14 +6,13 @@
   import SvelteSeo from "svelte-seo";
   import Article from "$lib/Article.svelte";
 
-  export let data: PageData;
+  let {data}: {data: PageData} = $props()
 
   type C = $$Generic<typeof SvelteComponent<any, any, any>>;
-  $: component = data.component as unknown as C;
 
-  $: ({ title, description, date, author, keywords } = data.frontmatter);
-
-  $: simplifiedDate = new Date(date).toLocaleDateString("en-gb");
+  let component = $derived(data.component as unknown as C);
+  let {title, description, date, author, keywords} = $derived(data.frontmatter);
+  let simplifiedDate = $derived( new Date(date).toLocaleDateString("en-gb"));
 </script>
 
 <SvelteSeo
@@ -39,5 +38,7 @@
 />
 
 <Article {author} date={simplifiedDate} {title} {description}>
+  {#snippet content()}
   <svelte:component this={component} />
+  {/snippet}
 </Article>

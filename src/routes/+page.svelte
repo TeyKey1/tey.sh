@@ -42,8 +42,8 @@
 <Tabs
   label="Skills"
   items={["Embedded", "Systems Programming", "Web"]}
-  let:selectedItem
 >
+  {#snippet selectedItemSlot(selectedItem)}
   {#if selectedItem === "Embedded"}
     <p>
       As an electrical engineer, I feel at home in embedded systems. I can
@@ -72,6 +72,7 @@
       encountered on web infrastructure.
     </p>
   {/if}
+  {/snippet}
 </Tabs>
 
 <section>
@@ -87,14 +88,15 @@
     title="Probe-rs Hive"
     tech="open-source, Rust, Vue, PCB and hardware design"
   >
-    <div slot="desc">
+    {#snippet desc()}
       <a href="https://probe.rs">probe-rs</a> is a modern open-source embedded debugging
       toolkit and an alternative to OpenOCD. Hive is a hardware-based test rack that
       can automatically test the probe-rs software against many combinations of debug
       probes and microcontroller targets.
-    </div>
+    {/snippet}
 
-    <div slot="more" class="project-more">
+    {#snippet more()}
+    <div class="project-more">
       <p>
         This project was my bachelor's thesis, for which I received the top
         mark. The probe-rs debugger software can communicate with many debug
@@ -155,18 +157,20 @@
         <a href="https://github.com/probe-rs/hive-software/wiki">Software</a>
       </p>
     </div>
+    {/snippet}
   </ProjectCard>
 
   <ProjectCard
     title="FliegerWeb.com"
     tech="SvelteKit, Rust, TypeScript, Directus, Meilisearch, MySQL"
   >
-    <div slot="desc">
-      <a href="https://fliegerweb.com">FliegerWeb</a> is one of the largest aviation
-      news and information websites in the German-speaking region since 2008.
-    </div>
+  {#snippet desc()}
+  <a href="https://fliegerweb.com">FliegerWeb</a> is one of the largest aviation
+  news and information websites in the German-speaking region since 2008.
+    {/snippet}
 
-    <div slot="more" class="project-more">
+    {#snippet more()}
+    <div class="project-more">
       <p>
         In 2022, I took over the administration and development of FliegerWeb.
         At the time the website was fully utilizing Java for the frontend and
@@ -223,15 +227,17 @@
         is a closed-source project. Most repositories/code are not public.
       </p>
     </div>
+    {/snippet}
   </ProjectCard>
 
   <ProjectCard title="svelte-konva" tech="open-source, Svelte, TypeScript">
-    <div slot="desc">
-      svelte-konva is the official Svelte wrapper for the Konva 2 HTML5 canvas
-      library.
-    </div>
+    {#snippet desc()}
+    svelte-konva is the official Svelte wrapper for the <a href="https://konvajs.org/">Konva 2 HTML5 canvas
+    library</a>.
+    {/snippet}
 
-    <div slot="more" class="project-more">
+    {#snippet more()}
+    <div class="project-more">
       <p>
         Konva allows users to easily draw shapes and listen to events on HTML5
         canvas using JavaScript. svelte-konva combines and leverages Svelte's
@@ -248,14 +254,16 @@
         Docs: <a href="https://konvajs.org/docs/svelte/">svelte-konva</a>
       </p>
     </div>
+    {/snippet}
   </ProjectCard>
 
   <ProjectCard title="PCA9535 embedded-hal driver" tech="open-source, Rust">
-    <div slot="desc">
-      A Rust embedded-hal compatible driver for the PCA9535 IO-Expander chip.
-    </div>
+    {#snippet desc()}
+    A Rust embedded-hal compatible driver for the PCA9535 IO-Expander chip.
+    {/snippet}
 
-    <div slot="more" class="project-more">
+    {#snippet more()}
+    <div class="project-more">
       <p>
         The driver is fully compatible with the Rust embedded-hal, allowing it
         to be used with many different target systems. The driver is
@@ -269,8 +277,9 @@
         Docs: <a href="https://docs.rs/pca9535/latest/pca9535">PCA9535</a>
       </p>
     </div>
+    {/snippet}
   </ProjectCard>
-  <p />
+  <p></p>
 </section>
 
 <section>

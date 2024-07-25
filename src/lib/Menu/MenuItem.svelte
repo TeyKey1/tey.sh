@@ -1,12 +1,12 @@
 <script lang="ts">
   import { page } from "$app/stores";
 
-  export let name: string;
-  export let href = "/" + name;
+  let { name, href = "/" + name }: { name: string; href?: string } = $props();
 
-  $: isActive =
+  let isActive = $derived(
     $page.route.id === href ||
-    (`${$page.url.pathname}/`.startsWith(href) && href != "/");
+      (`${$page.url.pathname}/`.startsWith(href) && href != "/"),
+  );
 </script>
 
 <a

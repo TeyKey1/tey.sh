@@ -4,7 +4,7 @@
   // Components
   import SvelteSeo from "svelte-seo";
 
-  export let data: PageData;
+  let { data }: { data: PageData } = $props();
 
   const title = "Today I learned... | tey.sh";
   const description =

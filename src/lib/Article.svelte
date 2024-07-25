@@ -1,11 +1,20 @@
 <script lang="ts">
-  import { onMount } from "svelte";
+  import { onMount, type Snippet } from "svelte";
   import { addCodeCopyButtons } from "$lib/code/copyCodeButton";
 
-  export let date: string;
-  export let author: string;
-  export let title: string;
-  export let description: string;
+  let {
+    date,
+    author,
+    title,
+    description,
+    content,
+  }: {
+    date: string;
+    author: string;
+    title: string;
+    description: string;
+    content: Snippet;
+  } = $props();
 
   onMount(() => {
     addCodeCopyButtons();
@@ -19,5 +28,5 @@
   </div>
   <strong>{description}</strong>
 
-  <slot />
+  {@render content()}
 </article>

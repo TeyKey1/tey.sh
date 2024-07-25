@@ -1,17 +1,20 @@
 <script lang="ts">
+    import type { Snippet } from "svelte";
   import { slide } from "svelte/transition";
 
-  let showMore = false;
+  let {children}: {children: Snippet} = $props();
+
+  let showMore = $state(false);
 </script>
 
 {#if showMore}
   <div transition:slide>
-    <slot />
+    {@render children()}
   </div>
 {/if}
 
 <button
-  on:click={() => {
+  onclick={() => {
     showMore = !showMore;
   }}>{showMore ? "Show less" : "Read more..."}</button
 >

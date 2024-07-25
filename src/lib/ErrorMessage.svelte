@@ -1,9 +1,9 @@
-<svelte:options immutable />
-
 <script lang="ts">
-  export let message: string;
-  export let hint: string | undefined = undefined;
-  export let status: number | undefined = undefined;
+  let {
+    message,
+    hint,
+    status,
+  }: { message: string; hint?: string; status?: number } = $props();
 </script>
 
 <div class="text-center max-w-2xl mx-auto">

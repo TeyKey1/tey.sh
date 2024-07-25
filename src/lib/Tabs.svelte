@@ -1,8 +1,14 @@
 <script lang="ts">
-  export let label: string;
-  export let items: Array<string>;
+  import type { Snippet } from "svelte";
 
-  let selectedItem: string = items[0] ?? "";
+  let {
+    selectedItemSlot,
+    label,
+    items,
+  }: { selectedItemSlot: Snippet<[string]>; label: string; items: Array<string> } =
+    $props();
+
+  let selectedItem: string = $state(items[0] ?? "");
 </script>
 
 <div class="my-4">
@@ -18,7 +24,7 @@
         aria-controls={`tabpanel-${item}`}
         class="m-0.5 font-bold text-lg text-white px-4 transition-colors hover:bg-accent leading-relaxed"
         class:bg-accent={selectedItem === item}
-        on:click={() => {
+        onclick={() => {
           selectedItem = item;
         }}
       >
@@ -32,6 +38,6 @@
     id={`tabpanel-${selectedItem}`}
     class=" border-accent border-l-0"
   >
-    <slot {selectedItem} />
+    {@render selectedItemSlot(selectedItem)}
   </div>
 </div>

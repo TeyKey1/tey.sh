@@ -1,3 +1,4 @@
+import { mount } from "svelte";
 import CopyCodeButton from "./CopyCodeButton.svelte";
 
 /**
@@ -24,6 +25,6 @@ export function addCodeCopyButtons() {
     target.parentElement.insertBefore(wrapperDiv, target);
     wrapperDiv.appendChild(target);
 
-    new CopyCodeButton({ target: wrapperDiv, props: { code } });
+    mount(CopyCodeButton, { target: wrapperDiv, props: { code } });
   }
 }

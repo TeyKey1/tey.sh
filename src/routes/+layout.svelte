@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onMount } from "svelte";
+  import { onMount, type Snippet } from "svelte";
 
   // CSS
   import "../css/app.css";
@@ -8,6 +8,8 @@
   // Components
   import Header from "$lib/Header.svelte";
   import Footer from "$lib/Footer.svelte";
+
+  let { children }: { children: Snippet } = $props();
 
   onMount(() => {
     console.info(`
@@ -27,7 +29,7 @@
   <Header />
 
   <div class="flex-1 prose dark:prose-invert py-8 max-w-full">
-    <slot />
+    {@render children()}
   </div>
 
   <Footer />
