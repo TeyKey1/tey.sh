@@ -44,34 +44,34 @@
   items={["Embedded", "Systems Programming", "Web"]}
 >
   {#snippet selectedItemSlot(selectedItem)}
-  {#if selectedItem === "Embedded"}
-    <p>
-      As an electrical engineer, I feel at home in embedded systems. I can
-      accompany you, starting from the hardware design (KiCAD, VHDL) up to the
-      development and testing of embedded software (C, Rust, Assembly).
-    </p>
-  {:else if selectedItem === "Systems Programming"}
-    <p>
-      With a background in industrial automation, I have experience in creating
-      software with tight timing requirements running on B&R PLCs with real-time
-      operating systems.
-    </p>
-    <p>
-      I can also help you implement device drivers or other related programs
-      using Rust.
-    </p>
-  {:else if selectedItem === "Web"}
-    <p>
-      I'm generally familiar with the essential web technologies. If you need
-      someone to implement Webservers (Rust, NodeJS, TypeScript) or create
-      websites (Vue, Svelte, Tailwind CSS), you've come to the right place :)
-    </p>
-    <p>
-      While I can work with designers to create websites, I do not consider
-      myself one. I'm also familiar with general system administration tasks
-      encountered on web infrastructure.
-    </p>
-  {/if}
+    {#if selectedItem === "Embedded"}
+      <p>
+        As an electrical engineer, I feel at home in embedded systems. I can
+        accompany you, starting from the hardware design (KiCAD, VHDL) up to the
+        development and testing of embedded software (C, Rust, Assembly).
+      </p>
+    {:else if selectedItem === "Systems Programming"}
+      <p>
+        With a background in industrial automation, I have experience in creating
+        software with tight timing requirements running on B&R PLCs with real-time
+        operating systems.
+      </p>
+      <p>
+        I can also help you implement device drivers or other related programs
+        using Rust.
+      </p>
+    {:else if selectedItem === "Web"}
+      <p>
+        I'm generally familiar with the essential web technologies. If you need
+        someone to implement Webservers (Rust, NodeJS, TypeScript) or create
+        websites (Vue, Svelte, Tailwind CSS), you've come to the right place :)
+      </p>
+      <p>
+        While I can work with designers to create websites, I do not consider
+        myself one. I'm also familiar with general system administration tasks
+        encountered on web infrastructure.
+      </p>
+    {/if}
   {/snippet}
 </Tabs>
 
@@ -96,67 +96,67 @@
     {/snippet}
 
     {#snippet more()}
-    <div class="project-more">
-      <p>
-        This project was my bachelor's thesis, for which I received the top
-        mark. The probe-rs debugger software can communicate with many debug
-        probes and microcontroller targets. However, there was no way to
-        reliably test if new probe-rs releases would work correctly on the many
-        possible combinations of probes and targets.
-      </p>
+      <div class="project-more">
+        <p>
+          This project was my bachelor's thesis, for which I received the top
+          mark. The probe-rs debugger software can communicate with many debug
+          probes and microcontroller targets. However, there was no way to
+          reliably test if new probe-rs releases would work correctly on the many
+          possible combinations of probes and targets.
+        </p>
 
-      <p>
-        The goal of this project was to design and manufacture a hardware test
-        rack, which should be able to test the probe-rs software automatically
-        against many combinations of debug probes and microcontrollers and
-        integrate seamlessly into the probe-rs rust codebase and its existing
-        GitHub CI/CD pipeline. The probe-rs developers previously designed a
-        hardware test rack but never manufactured it or wrote any software for
-        it. This design was large and not portable. The client wanted a new
-        hardware design which should be portable so all interested probe-rs
-        developers would be able to manufacture a Hive test rack for themselves.
-      </p>
+        <p>
+          The goal of this project was to design and manufacture a hardware test
+          rack, which should be able to test the probe-rs software automatically
+          against many combinations of debug probes and microcontrollers and
+          integrate seamlessly into the probe-rs rust codebase and its existing
+          GitHub CI/CD pipeline. The probe-rs developers previously designed a
+          hardware test rack but never manufactured it or wrote any software for
+          it. This design was large and not portable. The client wanted a new
+          hardware design which should be portable so all interested probe-rs
+          developers would be able to manufacture a Hive test rack for themselves.
+        </p>
 
-      <p>
-        The resulting test rack is designed as a combination of modular and
-        compact Raspberry Pi shields. The testrack can connect up to four debug
-        probes with up to 32 microcontrollers in all possible combinations. The
-        Raspberry Pi runs the test server, which controls the whole test rack
-        and communicates with the debug probes and the outside world.
-      </p>
+        <p>
+          The resulting test rack is designed as a combination of modular and
+          compact Raspberry Pi shields. The testrack can connect up to four debug
+          probes with up to 32 microcontrollers in all possible combinations. The
+          Raspberry Pi runs the test server, which controls the whole test rack
+          and communicates with the debug probes and the outside world.
+        </p>
 
-      <p>
-        The Hive test harness integrates into the standard rust integration test
-        environment, which allows developers to write the test functions for
-        Hive in a very similar way to normal integration tests. Custom Rust
-        macros alter the test functions so that the test runner on the server
-        can run them directly on the hardware.
-      </p>
+        <p>
+          The Hive test harness integrates into the standard rust integration test
+          environment, which allows developers to write the test functions for
+          Hive in a very similar way to normal integration tests. Custom Rust
+          macros alter the test functions so that the test runner on the server
+          can run them directly on the hardware.
+        </p>
 
-      <p>
-        With the Hive CLI tool, the developer (or a server) can connect to the
-        Hive test rack over the internet and run the tests on the hardware. The
-        test server runs the tests according to the instructions received from
-        the CLI and reports the results back. To prevent malicious code from
-        doing any damage to the test rack server, all remote code (probe-rs test
-        candidate and test functions) is executed in a bubblewrap sandbox with
-        Linux seccomp.
-      </p>
+        <p>
+          With the Hive CLI tool, the developer (or a server) can connect to the
+          Hive test rack over the internet and run the tests on the hardware. The
+          test server runs the tests according to the instructions received from
+          the CLI and reports the results back. To prevent malicious code from
+          doing any damage to the test rack server, all remote code (probe-rs test
+          candidate and test functions) is executed in a bubblewrap sandbox with
+          Linux seccomp.
+        </p>
 
-      <p>
-        Administration and maintenance of the test rack can be done comfortably
-        using a Vue-based web frontend. Due to the general software architecture
-        Hive is easily integratable into any CI/CD system.
-      </p>
+        <p>
+          Administration and maintenance of the test rack can be done comfortably
+          using a Vue-based web frontend. Due to the general software architecture
+          Hive is easily integratable into any CI/CD system.
+        </p>
 
-      <h3>Links</h3>
-      <p>
-        Repo: <a href="https://github.com/probe-rs/hive">Hardware</a>
-        <a href="https://github.com/probe-rs/hive-software">Software</a>
-        Docs: <a href="https://github.com/probe-rs/hive/wiki">Hardware</a>
-        <a href="https://github.com/probe-rs/hive-software/wiki">Software</a>
-      </p>
-    </div>
+        <h3>Links</h3>
+        <p>
+          Repo: <a href="https://github.com/probe-rs/hive">Hardware</a>
+          <a href="https://github.com/probe-rs/hive-software">Software</a>
+          Docs: <a href="https://github.com/probe-rs/hive/wiki">Hardware</a>
+          <a href="https://github.com/probe-rs/hive-software/wiki">Software</a>
+        </p>
+      </div>
     {/snippet}
   </ProjectCard>
 
@@ -164,119 +164,119 @@
     title="FliegerWeb.com"
     tech="SvelteKit, Rust, TypeScript, Directus, Meilisearch, MySQL"
   >
-  {#snippet desc()}
-  <a href="https://fliegerweb.com">FliegerWeb</a> is one of the largest aviation
-  news and information websites in the German-speaking region since 2008.
+    {#snippet desc()}
+      <a href="https://fliegerweb.com">FliegerWeb</a> is one of the largest aviation
+      news and information websites in the German-speaking region since 2008.
     {/snippet}
 
     {#snippet more()}
-    <div class="project-more">
-      <p>
-        In 2022, I took over the administration and development of FliegerWeb.
-        At the time the website was fully utilizing Java for the frontend and
-        backend code (Struts 2, Tiles, Bootstrap) in combination with a MySQL
-        database.
-      </p>
-      <p>
-        I improved the SEO aspects of this application, but over time it became
-        apparent that it would be a lot of effort to port the code from 2014 to
-        today's standards in terms of dependency versions, general usability of
-        the website, such as search, filtering, and usability on mobile devices.
-      </p>
-      <p>
-        Given the custom backend also started to show some age with various
-        smaller unfixed bugs and quirky workarounds, as well as the customer
-        demanding extensive improvements over the current state, I decided to
-        fully rebuild FliegerWeb using modern standards.
-      </p>
-      <p>
-        The backend was built using Directus CMS, which was a massive time-saver
-        as the general API and editing interface are working out of the box
-        without the need to create a full-fledged CMS by hand. Most of the time
-        was required to build scripts to fix a plethora of data inconsistencies
-        (broken links, Images, wrong formatting, etc.) in the existing MySQL
-        database due to previous reworks of FliegerWeb and bugs.
-      </p>
-      <p>
-        The basic search engine used in the Java app was very limited in
-        functionality and usability and thus replaced by Meilisearch, which
-        massively improved the search experience and results on the site.
-      </p>
-      <p>
-        Previously, FliegerWeb used a tag-based recommender system that relied
-        on the authors of the articles correctly using tags to function
-        properly. I built a new recommender system using Rust utilizing a TF-IDF
-        algorithm as a base metric for the similarity of articles. Additionally,
-        the system is able to incorporate a wide range of other metrics into its
-        calculations such as tags, dates, article categories, etc.
-      </p>
-      <p>
-        The front end was built using Svelte + SvelteKit with Tailwind CSS. The
-        design and routing was kept as close as possible to the predecessor
-        while moving to a fully responsive design suitable for mobile devices.
-        The redesign focused on modernizing the look and feel of the site as
-        well as giving the user more possibilities to easily filter and search
-        the vast amount of content available, which was not possible in the
-        previous version of the site.
-      </p>
+      <div class="project-more">
+        <p>
+          In 2022, I took over the administration and development of FliegerWeb.
+          At the time the website was fully utilizing Java for the frontend and
+          backend code (Struts 2, Tiles, Bootstrap) in combination with a MySQL
+          database.
+        </p>
+        <p>
+          I improved the SEO aspects of this application, but over time it became
+          apparent that it would be a lot of effort to port the code from 2014 to
+          today's standards in terms of dependency versions, general usability of
+          the website, such as search, filtering, and usability on mobile devices.
+        </p>
+        <p>
+          Given the custom backend also started to show some age with various
+          smaller unfixed bugs and quirky workarounds, as well as the customer
+          demanding extensive improvements over the current state, I decided to
+          fully rebuild FliegerWeb using modern standards.
+        </p>
+        <p>
+          The backend was built using Directus CMS, which was a massive time-saver
+          as the general API and editing interface are working out of the box
+          without the need to create a full-fledged CMS by hand. Most of the time
+          was required to build scripts to fix a plethora of data inconsistencies
+          (broken links, Images, wrong formatting, etc.) in the existing MySQL
+          database due to previous reworks of FliegerWeb and bugs.
+        </p>
+        <p>
+          The basic search engine used in the Java app was very limited in
+          functionality and usability and thus replaced by Meilisearch, which
+          massively improved the search experience and results on the site.
+        </p>
+        <p>
+          Previously, FliegerWeb used a tag-based recommender system that relied
+          on the authors of the articles correctly using tags to function
+          properly. I built a new recommender system using Rust utilizing a TF-IDF
+          algorithm as a base metric for the similarity of articles. Additionally,
+          the system is able to incorporate a wide range of other metrics into its
+          calculations such as tags, dates, article categories, etc.
+        </p>
+        <p>
+          The front end was built using Svelte + SvelteKit with Tailwind CSS. The
+          design and routing was kept as close as possible to the predecessor
+          while moving to a fully responsive design suitable for mobile devices.
+          The redesign focused on modernizing the look and feel of the site as
+          well as giving the user more possibilities to easily filter and search
+          the vast amount of content available, which was not possible in the
+          previous version of the site.
+        </p>
 
-      <h3>Links</h3>
-      <p>
-        Live: <a href="https://fliegerweb.com">FliegerWeb.com</a>
-        GitHub: <a href="https://github.com/Fliegerweb">FliegerWeb Repo</a> This
-        is a closed-source project. Most repositories/code are not public.
-      </p>
-    </div>
+        <h3>Links</h3>
+        <p>
+          Live: <a href="https://fliegerweb.com">FliegerWeb.com</a>
+          GitHub: <a href="https://github.com/Fliegerweb">FliegerWeb Repo</a> This
+          is a closed-source project. Most repositories/code are not public.
+        </p>
+      </div>
     {/snippet}
   </ProjectCard>
 
   <ProjectCard title="svelte-konva" tech="open-source, Svelte, TypeScript">
     {#snippet desc()}
-    svelte-konva is the official Svelte wrapper for the <a href="https://konvajs.org/">Konva 2 HTML5 canvas
-    library</a>.
+      svelte-konva is the official Svelte wrapper for the <a href="https://konvajs.org/">Konva 2 HTML5 canvas
+      library</a>.
     {/snippet}
 
     {#snippet more()}
-    <div class="project-more">
-      <p>
-        Konva allows users to easily draw shapes and listen to events on HTML5
-        canvas using JavaScript. svelte-konva combines and leverages Svelte's
-        reactivity system with the simplicity of Konva to enable users to create
-        reactive HTML5 canvas applications easily in Svelte. The wrapper is well
-        tested using Vitest, ensuring continuously high software quality. Being
-        written in Typescript, users of the wrapper also benefit from
-        well-working autocompletion and documentation of the Svelte components.
-      </p>
+      <div class="project-more">
+        <p>
+          Konva allows users to easily draw shapes and listen to events on HTML5
+          canvas using JavaScript. svelte-konva combines and leverages Svelte's
+          reactivity system with the simplicity of Konva to enable users to create
+          reactive HTML5 canvas applications easily in Svelte. The wrapper is well
+          tested using Vitest, ensuring continuously high software quality. Being
+          written in Typescript, users of the wrapper also benefit from
+          well-working autocompletion and documentation of the Svelte components.
+        </p>
 
-      <h3>Links</h3>
-      <p>
-        Repo: <a href="https://github.com/konvajs/svelte-konva">svelte-konva</a>
-        Docs: <a href="https://konvajs.org/docs/svelte/">svelte-konva</a>
-      </p>
-    </div>
+        <h3>Links</h3>
+        <p>
+          Repo: <a href="https://github.com/konvajs/svelte-konva">svelte-konva</a>
+          Docs: <a href="https://konvajs.org/docs/svelte/">svelte-konva</a>
+        </p>
+      </div>
     {/snippet}
   </ProjectCard>
 
   <ProjectCard title="PCA9535 embedded-hal driver" tech="open-source, Rust">
     {#snippet desc()}
-    A Rust embedded-hal compatible driver for the PCA9535 IO-Expander chip.
+      A Rust embedded-hal compatible driver for the PCA9535 IO-Expander chip.
     {/snippet}
 
     {#snippet more()}
-    <div class="project-more">
-      <p>
-        The driver is fully compatible with the Rust embedded-hal, allowing it
-        to be used with many different target systems. The driver is
-        automatically tested against the real hardware using a Raspberry Pi,
-        roughly similar to HIL-Testing.
-      </p>
+      <div class="project-more">
+        <p>
+          The driver is fully compatible with the Rust embedded-hal, allowing it
+          to be used with many different target systems. The driver is
+          automatically tested against the real hardware using a Raspberry Pi,
+          roughly similar to HIL-Testing.
+        </p>
 
-      <h3>Links</h3>
-      <p>
-        Repo: <a href="https://github.com/TeyKey1/pca9535">PCA9535</a>
-        Docs: <a href="https://docs.rs/pca9535/latest/pca9535">PCA9535</a>
-      </p>
-    </div>
+        <h3>Links</h3>
+        <p>
+          Repo: <a href="https://github.com/TeyKey1/pca9535">PCA9535</a>
+          Docs: <a href="https://docs.rs/pca9535/latest/pca9535">PCA9535</a>
+        </p>
+      </div>
     {/snippet}
   </ProjectCard>
   <p></p>

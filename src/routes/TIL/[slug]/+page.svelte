@@ -39,6 +39,6 @@
 
 <Article {author} date={simplifiedDate} {title} {description}>
   {#snippet content()}
-  <svelte:component this={component} />
+    <svelte:component this={component} />
   {/snippet}
 </Article>
