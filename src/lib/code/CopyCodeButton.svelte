@@ -5,6 +5,7 @@
 
   export let code: string;
 
+  let hoveringCode = false;
   let showCopyButton = false;
   let copySuccessful = false;
   let copyError = false;
@@ -30,13 +31,15 @@
     const codeBlock = copyButton.parentElement!;
 
     codeBlock.addEventListener("mouseenter", () => {
-      showCopyButton = true;
+      hoveringCode = true;
     });
 
     codeBlock.addEventListener("mouseleave", () => {
-      showCopyButton = false;
+      hoveringCode = false;
     });
   });
+
+  $: showCopyButton = hoveringCode || copySuccessful;
 </script>
 
 <button
