@@ -10,6 +10,10 @@ keywords: typescript, phantom data, branded types, rust
 published: true
 ---
 
+<script>
+	import InfoBox from "$lib/md-elements/InfoBox.svelte";
+</script>
+
 Recently, I removed Google Analytics from a Website and used
 [Umami](https://umami.is) analytics instead. Umami is a neat, open-source,
 privacy-focused web analytics software you can easily self-host. Best of all, it
@@ -163,7 +167,7 @@ this:
 declare const __phantom: unique symbol;
 type Event<T> = string & { [__phantom]: T };
 
-export function analyticsEvent<T>(event: Event<T>, payload: T) {
+export function analyticsEvent<const T>(event: Event<T>, payload: T) {
 	umami.track(event, payload);
 }
 
@@ -174,6 +178,20 @@ export const ANALYTICS_SHARE_EVENT = 'share' as Event<{
 }>;
 export const ANALYTICS_XYZ_EVENT = ...
 ```
+
+<InfoBox>
+
+As correctly
+[pointed out by a fellow reader](https://github.com/TeyKey1/tey.sh/issues/81)
+declaring the `analyticsEvent` function's generic like this `<T>` allows users
+to use any arbitrary string for the `method` property when using the
+`ANALYTICS_SHARE_EVENT`, as `method` is being coerced to type `string`.
+
+In TypeScript 5, you can now declare the generic as `<const T>`, which prevents
+such type coercions, in our case, preventing the user from inputting the defined
+string values for `method` in the payload.
+
+</InfoBox>
 
 If this code is located within its own TypeScript file (or provided as a
 library), we now have a neat API that is hard to misuse. New Events can now only
