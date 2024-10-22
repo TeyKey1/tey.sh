@@ -10,10 +10,11 @@ published: true
 ---
 
 In my open-source project [Hive](https://github.com/probe-rs/hive-software),
-which is used to test [probe-rs]() against real hardware, there are two main
-executables: The monitor and the runner. I won't go into details on the
-architecture of Hive, but broadly speaking, the monitor binary acts as a server,
-which executes the runner binary as a subprocess during a test run.
+which is used to test [probe-rs](https://github.com/probe-rs/probe-rs) against
+real hardware, there are two main executables: The monitor and the runner. I
+won't go into details on the architecture of Hive, but broadly speaking, the
+monitor binary acts as a server, which executes the runner binary as a
+subprocess during a test run.
 
 I made some updates and improvements to the monitor code, which I later tested
 on the hardware soon to realize that the runner binary would run into a deadlock
@@ -166,9 +167,9 @@ yourself. A simple way is to create two additional threads that continuously
 read the pipe data into RAM until they receive the EOF condition (you can use
 the `read_to_end` Reader trait function for that).
 
-Alternatively, the [rust-subprocess]() library does this for you (even a bit
-smarter using `poll` on Linux systems instead of threads). Just make sure to use
-the Communicator struct (see
+Alternatively, the [rust-subprocess](https://github.com/hniksic/rust-subprocess)
+library does this for you (even a bit smarter using `poll` on Linux systems
+instead of threads). Just make sure to use the Communicator struct (see
 [docs](https://docs.rs/subprocess/latest/subprocess/struct.Communicator.html)).
 
 Overall, this was a great learning experience and a good reminder that it is
