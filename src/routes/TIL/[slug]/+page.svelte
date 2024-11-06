@@ -10,7 +10,7 @@
 
   type C = $$Generic<typeof SvelteComponent<any, any, any>>;
 
-  let component = $derived(data.component as unknown as C);
+  let Component = $derived(data.component as unknown as C);
   let {title, description, date, author, keywords} = $derived(data.frontmatter);
   let simplifiedDate = $derived( new Date(date).toLocaleDateString("en-gb"));
 </script>
@@ -39,6 +39,6 @@
 
 <Article {author} date={simplifiedDate} {title} {description}>
   {#snippet content()}
-    <svelte:component this={component} />
+    <Component />
   {/snippet}
 </Article>
