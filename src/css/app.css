@@ -1,6 +1,46 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@plugin '@tailwindcss/typography';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --color-*: initial;
+  --color-base: #08222d;
+  --color-main: #e7bf00;
+  --color-accent: #4f5861;
+  --color-dark-error: #c9453e;
+  --color-cli-black: 002221;
+  --color-cli-red: #ea3431;
+  --color-cli-green: #00b6b6;
+  --color-cli-yellow: #e7bf00;
+  --color-cli-blue: #4894fd;
+  --color-cli-magenta: #e01dca;
+  --color-cli-cyan: #1ab2ad;
+  --color-cli-white: #ffffff;
+  --color-white: #eeeeee;
+  --color-white-dim: #ffffff80;
+
+  --font-sans: JetBrains Mono, monospace;
+}
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
 
 html,
 body {
@@ -14,28 +54,28 @@ body {
 }
 
 *::-webkit-scrollbar-track {
-  background: theme("colors.base");
+  background: var(--color-base);
 }
 
 *::-webkit-scrollbar-thumb {
-  background-color: theme("colors.white-dim");
+  background-color: var(--color-white-dim);
   border-radius: 10px;
-  border: 5px solid theme("colors.base");
+  border: 5px solid var(--color-base);
 }
 
 /* Tailwind typography styling */
 .prose em {
-  color: theme("colors.white-dim");
+  color: var(--color-white-dim);
 }
 
 .prose h1::before {
   content: "# ";
-  color: theme("colors.main");
+  color: var(--color-main);
 }
 
 .prose h2::before {
   content: "## ";
-  color: theme("colors.cli-magenta");
+  color: var(--color-cli-magenta);
 }
 
 .prose h2 {
@@ -43,5 +83,5 @@ body {
 }
 
 .prose a {
-  color: theme("colors.cli-green");
+  color: var(--color-cli-green);
 }
