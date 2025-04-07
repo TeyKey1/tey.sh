@@ -8,6 +8,7 @@
 
   let { data }: { data: PageData } = $props();
 
+  // eslint-disable-next-line  @typescript-eslint/no-explicit-any
   type C = $$Generic<typeof SvelteComponent<any, any, any>>;
 
   let Component = $derived(data.component as unknown as C);

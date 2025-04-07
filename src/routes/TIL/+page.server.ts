@@ -3,7 +3,7 @@ import { slugFromPath } from "$lib/slugFromPath";
 
 const MAX_POSTS = 10;
 
-export const load: PageServerLoad = async ({ url }) => {
+export const load: PageServerLoad = async () => {
   const modules = import.meta.glob(`/til-content/*.{md,svx,svelte.md}`);
 
   const postPromises = Object.entries(modules).map(([path, resolver]) =>

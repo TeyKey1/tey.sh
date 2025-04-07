@@ -188,8 +188,8 @@ to use any arbitrary string for the `method` property when using the
 `ANALYTICS_SHARE_EVENT`, as `method` is being coerced to type `string`.
 
 In TypeScript 5, you can now declare the generic as `<const T>`, which prevents
-such type coercions, in our case, preventing the user from inputting the defined
-string values for `method` in the payload.
+such type coercions, in our case, preventing the user from inputting arbitrary
+string values instead of the defined values for `method` in the payload.
 
 </InfoBox>
 
