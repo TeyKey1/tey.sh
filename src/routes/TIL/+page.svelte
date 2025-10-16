@@ -29,6 +29,8 @@
     title,
     description,
   }}
+  nositelinkssearchbox
+  notranslate={false}
 />
 
 <h1>Today I learned...</h1>

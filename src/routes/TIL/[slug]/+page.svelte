@@ -38,6 +38,8 @@
     title,
     description,
   }}
+  nositelinkssearchbox
+  notranslate={false}
 />
 
 <Article {author} date={simplifiedDate} {title} {description}>

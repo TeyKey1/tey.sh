@@ -27,6 +27,8 @@
     title,
     description,
   }}
+  nositelinkssearchbox
+  notranslate={false}
 />
 
 <section>
