@@ -27,7 +27,7 @@
     title,
     description,
   }}
-  nositelinkssearchbox
+  nositelinkssearchbox={false}
   notranslate={false}
 />
 
