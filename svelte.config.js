@@ -10,7 +10,7 @@ const config = {
 
   vitePlugin: {
     dynamicCompileOptions({ filename }) {
-      if (filename.includes("node_modules")) return { runes: false }; // Do not opt-in for runes only mode on deps
+      if (filename.includes("node_modules")) return { runes: undefined }; // Do not opt-in for runes only mode on deps
     },
   },
 
