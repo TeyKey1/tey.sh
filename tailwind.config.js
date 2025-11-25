@@ -26,6 +26,24 @@ export default {
       fontFamily: {
         sans: ["JetBrains Mono", "monospace"],
       },
+      typography: {
+        DEFAULT: {
+          css: {
+            code: {
+              backgroundColor: "#203c48",
+              fontWeight: "400",
+              padding: "0.25rem 0.25rem 0 0.25rem",
+              "border-radius": "0.1rem",
+            },
+            "code::before": {
+              content: '""',
+            },
+            "code::after": {
+              content: '""',
+            },
+          },
+        },
+      },
     },
   },
   plugins: [require("@tailwindcss/typography")],
