@@ -9,6 +9,10 @@ keywords: bfcache, SvelteKit, Svelte
 published: true
 ---
 
+<script>
+	import WarnBox from "$lib/md-elements/WarnBox.svelte";
+</script>
+
 Modern browsers happen to cache a lot of things. This has many benefits ranging
 from faster loading time to lesser data consumption, to name the most prominent
 ones. The most well-known browser cache is probably the HTTP cache, which stores
@@ -84,11 +88,15 @@ this:
 {/if}
 ```
 
+<WarnBox>
+
 By the way, this code is for demonstration purposes only. Do not implement a
 navigation progress bar this way! Use SvelteKit's
 [navigating store](https://learn.svelte.dev/tutorial/navigating-store) instead,
 which already considers bfcache (see
 [SvelteKit#5613](https://github.com/sveltejs/kit/pull/5613)).
+
+</WarnBox>
 
 Back to the code: I used the `beforeNavigate` and `afterNavigate` hooks to
 either show or hide the progress bar on the page. This worked fine except for
