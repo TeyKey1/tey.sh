@@ -164,7 +164,7 @@
 
   <ProjectCard
     title="FliegerWeb.com"
-    tech="SvelteKit, Rust, TypeScript, Directus, Meilisearch, MySQL"
+    tech="SvelteKit, Rust, TypeScript, Directus, Meilisearch, MySQL, Docker Swarm"
   >
     {#snippet desc()}
       <a href="https://fliegerweb.com">FliegerWeb</a> is one of the largest aviation
